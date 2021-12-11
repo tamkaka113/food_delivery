@@ -4,27 +4,40 @@ import React, { useEffect, useState } from "react";
 import HomeBanner from "./HomeBanner";
 
 import "./styles.scss";
-import { homeBannersData } from "../BannerInfo";
+import { homeBannersData } from "../../../../utils/HomeData";
 
 export default function Banners() {
   const [slideNum, setSlideNum] = useState(0);
  
 
 
-  // handle auto slide
+
+  let timeWaiter
+ 
   useEffect(() => {
-    const timeWaiter = setTimeout(() => {
+
+    timeWaiter = setInterval(() => {
       if (slideNum < homeBannersData.length - 1) {
         setSlideNum(slideNum + 1);
       } else {
         setSlideNum(0);
       }
-    }, 100);
+    }, 2500);
+    return () => clearInterval(timeWaiter)
+    
+  }, [slideNum])
 
-    return clearTimeout(timeWaiter);
-  },[]);
+  
+
+  
+ 
 
 
+ 
+      
+const handleStopAutoPlay =() => {
+  
+}
 
   const moveDot = (idx) => {
     setSlideNum(idx);
@@ -37,7 +50,10 @@ export default function Banners() {
         style={{ transform: `translateX(${-100 * slideNum}%)` }}
       >
         {homeBannersData.map((data, index) => (
-          <HomeBanner key={index} {...data} />
+          <HomeBanner key={index} {...data}
+          handleStopAutoPlay = {handleStopAutoPlay}
+       
+          />
         ))}
       </div>
       <div className="dots">

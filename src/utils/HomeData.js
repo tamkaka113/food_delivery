@@ -236,7 +236,7 @@ const homeReviewsData = [
   },
 ];
 
-const homeAnalysisData = [
+const homeFigureData = [
   {
     suffix: "+",
     description: "Cups of Coffee",
@@ -299,6 +299,6 @@ export {
   homeIngredientsData,
   homeReviewsData,
   homeProductsData,
-  homeAnalysisData,
+  homeFigureData,
   detailTableData,
 };

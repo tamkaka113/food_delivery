@@ -1,13 +1,26 @@
 
-import './App.css';
-import Header from './components/Header/Header';
-import Home from "./pages/Home/Home"
+import './App.scss';
+
+import RootRouter from 'appRouter/RootRouter/RootRouter';
+import {BrowserRouter} from "react-router-dom"
+
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+import storeConfig from './store/config'
+import { Provider } from "react-redux";
+const {store,persistor} = storeConfig()
+
+
 function App() {
   return (
-    <div className="App">
-   <Header/>
-  <Home/>
-    </div>
+    <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+   <BrowserRouter>
+<RootRouter/>
+   </BrowserRouter>
+   </PersistGate>
+
+ </Provider>
   );
 }
 

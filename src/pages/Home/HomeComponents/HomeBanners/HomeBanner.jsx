@@ -10,16 +10,20 @@ import { Container,Button } from "@material-ui/core";
 /* import PrimaryButton from "components/PrimaryButton"; */
 
 
+
 import "./HomeBanner.scss";
+import PrimaryButton from "components/PrimaryButton/PrimaryButton";
 
 export default function HomeBanner(props) {
-  const { title, description, strong, background } = props;
-console.log(background)
+  const { title, description, strong, background, handleStopAutoPlay } = props;
+
 
   return (
     <div
    
       className="home-banner"
+      onMouseEnter = {()=> {handleStopAutoPlay()}}
+
       style={{
         backgroundImage: `url(${background})`,
       }}
@@ -38,10 +42,10 @@ console.log(background)
           </div>
 
           <div>
-            <Button subClass="red" page="shop">
+            <PrimaryButton  >
               <AddShoppingCartIcon className="home-banner__icon" />
               Order now
-            </Button>
+            </PrimaryButton>
           </div>
         </div>
       </Container>

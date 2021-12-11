@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { Container } from '@material-ui/core';
-import BurgerNavbar from '../BurgerNavbar';
+import BurgerNavbar from './BurgerNavbar';
 // material ui icons
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
