@@ -1,26 +1,37 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import Theme from 'utils/customMaterialUi';
+import ApiProvider from './contexts/ApiContext';
+import RootRouter from './RootRouter/RootRouter'
+
+
+import FilterProvider from 'contexts/FilterContext';
+
+// material ui core
+import { ThemeProvider } from '@material-ui/core/styles';
+
+import Header from 'components/Header/Header';
+import Footer from 'components/Footer/Footer';
+import ScrollButton from 'components/ScrollButton';
 
 import './App.scss';
 
-import RootRouter from 'appRouter/RootRouter/RootRouter';
-import {BrowserRouter} from "react-router-dom"
-
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistStore } from 'redux-persist'
-import storeConfig from './store/config'
-import { Provider } from "react-redux";
-const {store,persistor} = storeConfig()
-
-
 function App() {
-  return (
-    <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-   <BrowserRouter>
-<RootRouter/>
-   </BrowserRouter>
-   </PersistGate>
 
- </Provider>
+  return (
+    <ThemeProvider theme={Theme}>
+      <Router>
+      <FilterProvider>
+
+            <ApiProvider>
+            
+              <RootRouter />
+            </ApiProvider>
+      </FilterProvider>
+      </Router>
+      <ScrollButton />
+      <Footer />
+    </ThemeProvider>
   );
 }
 

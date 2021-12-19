@@ -1,34 +1,39 @@
-import React, {useEffect}from 'react'
+import React, {useEffect, useContext}from 'react'
 import './styles.scss'
 import ShopFilters from './ShopComponents/ShopFilters/ShopFilters'
 import ShopContent from './ShopComponents/ShopContent/ShopContent'
 import { Container } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import Banner from 'components/Banner/Banner'
-import { useLocation,useParams } from 'react-router'
-import {GetProductListAction, getProductListSuccessAction} from 'store/action/ProductAction'
+import { useLocation,useParams,useHistory } from 'react-router'
+import { ApiContext } from 'contexts/ApiContext'
+import { FilterContext } from 'contexts/FilterContext'
+import queryString from 'query-string'
 export default function Shop() {
+  const { getProductList } = useContext(ApiContext);
+  const { name } = useParams();
 
-  const {name} =useParams()
-  const dispatch =useDispatch()
+  const history =useHistory()
+ 
 
- const params = {
-   _page: 3,
-   _limit: 10
- }
-
-
-
-useEffect(() => {
-  GetProductListAction(name,params).then(data => {
-    if(data) {
-     dispatch(getProductListSuccessAction(data))
-    }
-  })
-   
+    // when browser loaded get url to re-render
+  window.addEventListener('load', () => {
+    const params = history.location.search;
   
-
-}, [name])
+    if (params) {
+      const paramsObj = JSON.parse(
+        '{"' +
+          decodeURI(
+            params.substr(1).replace(/&/g, '","').replace(/=/g, '":"')
+          ) +
+          '"}'
+      );
+   
+      getProductList(name, paramsObj);
+    } else {
+      getProductList(name);
+    }
+  }); 
 
 
     return (
@@ -38,7 +43,7 @@ useEffect(() => {
       <Container>
         <div className='shop__container'>
           <ShopFilters />
-          <ShopContent />
+          <ShopContent/>
         </div>
       </Container>
     </section>

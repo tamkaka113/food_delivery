@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import HomeBanner from "./HomeBanner";
 
 import "./styles.scss";
-import { homeBannersData } from "../../../../utils/HomeData";
+import { homeBannersData } from "utils/HomeData";
 
 export default function Banners() {
   const [slideNum, setSlideNum] = useState(0);
@@ -28,12 +28,6 @@ export default function Banners() {
   }, [slideNum])
 
   
-
-  
- 
-
-
- 
       
 const handleStopAutoPlay =() => {
   

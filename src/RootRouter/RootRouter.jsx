@@ -20,7 +20,7 @@ export default function RootRouter() {
           </Route>
 
         
-          <Route exact path='/shop/:name'>
+          <Route  path="/shop/:name">
             <Shop/>
           </Route>
 
