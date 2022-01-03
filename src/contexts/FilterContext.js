@@ -5,23 +5,31 @@ export const FilterContext = createContext();
 function FilterProvider({ children }) {
   const [prevName, setPrevName] = useState(null);
   const [prevPrice, setPrevPrice] = useState(null);
-  const [prevRate, setPrevRate] = useState(null);
-  const [prevSearch, setPrevSearch] = useState(null);
+  const [prevRate, setPrevRate] = useState("");
+  const [prevSearch, setPrevSearch] = useState("");
   const [selectedRadio, setSelectedRadio] = useState(null);
   const [selectedDrop, setSelectedDrop] = useState("Featured");
   const [nameActive, setNameActive] = useState(null);
 
+  const [isDisplay, setIsDisplay] = useState(true)
+ 
+  const [filter,setFilter] =useState({
+    _limit:16,
+    _page:1,
+
+  })
+
+
   const handlePrevFilter = (type, value) => {
     switch (type) {
       case "name":
-        setPrevName(value);
         setPrevPrice(null);
         setPrevRate(null);
         setPrevSearch(null)
         setSelectedDrop("Featured");
 
         break;
-      case "price":
+/*   case "price":
         setPrevPrice(value);
         setPrevRate(null);
         setSelectedDrop("Featured");
@@ -47,13 +55,13 @@ function FilterProvider({ children }) {
         setSelectedRadio(null);
         setSelectedDrop("Featured");
         break;
+        case "drop":
+          setSelectedDrop(value); */
       case "pagination":
         setPrevName(null);
         setSelectedDrop("Featured");
         break;
-      case "drop":
-        setSelectedDrop(value);
-        break;
+        break; 
       default:
         break;
     }
@@ -77,7 +85,7 @@ function FilterProvider({ children }) {
   };
 
   return (
-    <FilterContext.Provider value={{ handlePrevFilter }}>
+    <FilterContext.Provider value={{ handlePrevFilter, filter,setFilter,setPrevSearch,isDisplay, setIsDisplay }}>
       {children}
     </FilterContext.Provider>
   );

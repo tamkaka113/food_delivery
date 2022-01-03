@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import "./styles.scss";
 
 function Checkbox(props) {
-  const { content, checked, handleOptionChange, handleOptionClick } = props;
+  const { content, checked, handleChangebyPrice, handleFilterbyByPrice } = props;
 
   return (
-    <label onClick={handleOptionClick} className="checkbox">
+    <label onClick={handleFilterbyByPrice} className="checkbox">
       <input
         checked={checked}
-        onChange={handleOptionChange}
+        onChange={handleChangebyPrice}
         className="checkbox__input"
         type="radio"
         name="Radio"

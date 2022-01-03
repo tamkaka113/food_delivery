@@ -5,7 +5,7 @@ const initState = {
   loading: false,
 };
 
-export default function Reducer(state = { ...initState }, action) {
+export default function ProductReducer(state ={...initState}, action) {
   switch (action.type) {
     case types.GET_PRODUCT_LIST_START:
       return {

@@ -25,13 +25,15 @@ export default  function ShopProduct(props) {
   const { id, name, img, dsc, price, rate, country } =
     props;
 
-
-
+   const params = useParams()
+    const history = useHistory()
   const handleAddToFirestore = (type) => {
    
   };
 
   const handleToDetail = (id) => {
+
+    history.push(`/shop/${params.name}/${id}`);
     
   };
 

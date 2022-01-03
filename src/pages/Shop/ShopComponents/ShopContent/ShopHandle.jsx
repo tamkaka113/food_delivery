@@ -1,15 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
 import { ApiContext } from "contexts/ApiContext";
 import { FilterContext } from "contexts/FilterContext";
-
 // material ui icons
 import SearchIcon from "@material-ui/icons/Search";
 import ViewList from "@material-ui/icons/ViewList";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import {FilterProductAction} from 'store/action/ProductAction'
 
 import "./ShopHandle.scss";
 
@@ -33,48 +31,89 @@ const dataTypes = [
 ];
 
 function ShopHandle() {
-  const [inputValue, setInputValue] = useState("");
   const [isDrop, setIsDrop] = useState(false);
+  const ref = useRef();
+  const [inputValue, setInputValue] = useState("");
   const { getProductList } = useContext(ApiContext);
-  const { handlePrevFilter  } = useContext(FilterContext);
+  const { handlePrevFilter, setFilter, filter, setIsDisplay, isDisplay } =
+    useContext(FilterContext);
   const dispatch = useDispatch();
-   const {setPrevSearch} =handlePrevFilter()
-  const handleSearch = (e) => {
+  const shopProduct = useSelector((state) => state.ProductReducer.list);
 
-  
-    const params = {
+  console.log(shopProduct)
+  const { setSelectedRadio, setPrevSearch, setSelectedDrop, selectedDrop } =
+    handlePrevFilter();
+
+
+  const handleSearch = (e) => {
+    setSelectedRadio(null);
+
+    setFilter({
+      _limit: 16,
+      _page: 1,
       name_like: inputValue,
+    });
+    e.preventDefault();
+
+    setPrevSearch({ name_like: inputValue });
+    setInputValue("");
+  };
+
+  const { name_like } = filter;
+  useEffect(() => {
+    if (name_like?.length > 0) {
+      getProductList("our-foods", filter);
+    }
+  }, [filter]);
+
+  const handleOnchange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+  };
+
+  const handdleFilterBySort = (sort, value) => {
+
+    switch (sort) {
+      case "price_lth":
+        shopProduct.sort((a, b) => a.price - b.price);
+        break;
+      case "price_htl":
+        shopProduct.sort((a, b) => b.price - a.price);
+        break;
+      case "rate_lth":
+        shopProduct.sort((a, b) => a.rate - b.rate);
+        break;
+      case "rate_htl":
+        shopProduct.sort((a, b) => b.rate - a.rate);
+        break;
+    
+      default:
+        break;
+    }
+
+    setSelectedDrop(value);
+  };
+  useEffect(() => {
+    const handleClickDrop = (e) => {
+      const el = ref.current;
+      if (el && el.contains(e.target)) {
+        setIsDrop(!isDrop);
+      } else {
+        setIsDrop(false);
+      }
     };
 
-    handlePrevFilter('name',params)
-    e.preventDefault();
-    setPrevSearch(params)
-    if (!inputValue) return;
-    setInputValue("");
-    
+    window.addEventListener("click", handleClickDrop);
 
-    getProductList("our-foods", params);
-
-  };
-
-  const onFilterBySort = () => {};
-
-  const handleSetShopProductsView = (type) => {};
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-
-    setInputValue(value);
-
-  
-  };
+    return window.addEventListener("click", handleClickDrop);
+  }, []);
 
   return (
     <div className="shop-handle">
       <form onSubmit={handleSearch} className="shop-handle__search">
         <input
           value={inputValue}
-          onChange={handleSearchChange}
+          onChange={handleOnchange}
           placeholder="Search your product"
         />
         <button className="shop-handle__search-btn">
@@ -83,15 +122,19 @@ function ShopHandle() {
       </form>
 
       <div className="shop-handle__drop">
-        <div className="shop-handle__drop-current">
-          <span>tam</span>
+        <div ref={ref} className="shop-handle__drop-current">
+          <span>{selectedDrop}</span>
           <ExpandMoreIcon />
         </div>
 
-        <ul className={"shop-handle__drop-list"}>
+        <ul
+          className={
+            isDrop ? "shop-handle__drop-list drop" : "shop-handle__drop-list "
+          }
+        >
           {dataTypes.map(({ value, sort }, index) => (
             <li
-              onClick={() => onFilterBySort(sort, value)}
+              onClick={() => handdleFilterBySort(sort, value)}
               key={index}
               className="shop-handle__drop-item"
             >
@@ -101,14 +144,26 @@ function ShopHandle() {
         </ul>
       </div>
 
-      <div className="shop-handle__display-types">
+      <div className="shop-handle__display-types ">
         <ViewList
-          onClick={() => handleSetShopProductsView("list")}
-          className="shop-handle__display-type active"
+          onClick={() => {
+            setIsDisplay(true);
+          }}
+          className={
+            isDisplay
+              ? "shop-handle__display-type active"
+              : "shop-handle__display-type"
+          }
         />
         <ViewModuleIcon
-          onClick={() => handleSetShopProductsView("grid")}
-          className="shop-handle__display-type active"
+          onClick={() => {
+            setIsDisplay(false);
+          }}
+          className={
+            !isDisplay
+              ? "shop-handle__display-type active"
+              : "shop-handle__display-type"
+          }
         />
       </div>
     </div>

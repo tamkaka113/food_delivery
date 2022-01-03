@@ -1,33 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,Suspense,lazy } from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from "pages/Home/Home";
 import Shop from "pages/Shop/Shop";
-import Footer from "components/Footer/Footer";
-import Header from "components/Header/Header";
-import ScrollButton from "components/ScrollButton";
+import Detail from "pages/Detail/Detail";
+
 export default function RootRouter() {
- 
 
  
   return (
     <div>
-      <BrowserRouter>
-         <Header/> 
-      <ScrollButton/>
-        <Switch>
+    <Suspense>
+    <Switch>
           <Route exact path="/">
             <Home />
           </Route>
 
         
-          <Route  path="/shop/:name">
+          <Route  exact path="/shop/:name">
             <Shop/>
+          </Route>
+          <Route exact path="/shop/:name/:id">
+            <Detail/>
           </Route>
 
        
         </Switch>
      
-      </BrowserRouter>
+    </Suspense>
+       
+     
     </div>
   );
 }

@@ -12,7 +12,7 @@ function ShopContent() {
 
 
   return (
-    <div className="shop-content">
+    <div className="shop-content grid">
       <ShopHandle isFlex={isFlex} setIsFlex={setIsFlex} />
        <ShopProducts/>
     </div>

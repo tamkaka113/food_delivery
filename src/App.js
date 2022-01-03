@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Theme from 'utils/customMaterialUi';
 import ApiProvider from './contexts/ApiContext';
 import RootRouter from './RootRouter/RootRouter'
-
+import Routes from './routes/Routes' 
 
 import FilterProvider from 'contexts/FilterContext';
 
@@ -22,9 +22,8 @@ function App() {
     <ThemeProvider theme={Theme}>
       <Router>
       <FilterProvider>
-
             <ApiProvider>
-            
+            <Header/>
               <RootRouter />
             </ApiProvider>
       </FilterProvider>
