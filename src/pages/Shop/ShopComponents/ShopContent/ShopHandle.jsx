@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { ApiContext } from "contexts/ApiContext";
 import { FilterContext } from "contexts/FilterContext";
 // material ui icons
@@ -7,10 +6,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import ViewList from "@material-ui/icons/ViewList";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {FilterProductAction} from 'store/action/ProductAction'
-
+import { useSelector,useDispatch } from "react-redux";
 import "./ShopHandle.scss";
-
+import { Categories } from "utils/data";
 const dataTypes = [
   {
     value: "Price: Low to High",
@@ -35,18 +33,24 @@ function ShopHandle() {
   const ref = useRef();
   const [inputValue, setInputValue] = useState("");
   const { getProductList } = useContext(ApiContext);
-  const { handlePrevFilter, setFilter, filter, setIsDisplay, isDisplay } =
+  const { setFilter, filter, setIsDisplay, isDisplay,prevFilter,setPrevFilter } =
     useContext(FilterContext);
-  const dispatch = useDispatch();
   const shopProduct = useSelector((state) => state.ProductReducer.list);
+  const dispatch = useDispatch()
 
-  console.log(shopProduct)
-  const { setSelectedRadio, setPrevSearch, setSelectedDrop, selectedDrop } =
-    handlePrevFilter();
 
 
   const handleSearch = (e) => {
-    setSelectedRadio(null);
+    setPrevFilter ( {
+      ...prevFilter,
+      selectedDrop:'Feature',
+      selectedRadio:null,
+      prevSearch:{ name_like: inputValue }
+    })
+
+    Categories.push(inputValue)  
+
+
 
     setFilter({
       _limit: 16,
@@ -54,8 +58,6 @@ function ShopHandle() {
       name_like: inputValue,
     });
     e.preventDefault();
-
-    setPrevSearch({ name_like: inputValue });
     setInputValue("");
   };
 
@@ -69,6 +71,8 @@ function ShopHandle() {
   const handleOnchange = (e) => {
     const value = e.target.value;
     setInputValue(value);
+    
+
   };
 
   const handdleFilterBySort = (sort, value) => {
@@ -91,7 +95,10 @@ function ShopHandle() {
         break;
     }
 
-    setSelectedDrop(value);
+    setPrevFilter ( {
+      ...prevFilter,
+     selectedDrop:value,
+    });
   };
   useEffect(() => {
     const handleClickDrop = (e) => {
@@ -123,7 +130,7 @@ function ShopHandle() {
 
       <div className="shop-handle__drop">
         <div ref={ref} className="shop-handle__drop-current">
-          <span>{selectedDrop}</span>
+          <span>{prevFilter.selectedDrop}</span>
           <ExpandMoreIcon />
         </div>
 
@@ -147,10 +154,13 @@ function ShopHandle() {
       <div className="shop-handle__display-types ">
         <ViewList
           onClick={() => {
-            setIsDisplay(true);
+            setIsDisplay({
+              ...isDisplay,
+              isDisplayProduct:true
+            });
           }}
           className={
-            isDisplay
+            isDisplay.isDisplayProduct
               ? "shop-handle__display-type active"
               : "shop-handle__display-type"
           }

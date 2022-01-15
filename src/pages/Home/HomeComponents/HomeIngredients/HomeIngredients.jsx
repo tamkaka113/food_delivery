@@ -1,8 +1,5 @@
-import { useEffect, useRef } from "react";
 
 import { homeIngredientsData } from "utils/HomeData";
-
-
 import { IngredientsThumb, ShapeOne, ShapeTwo } from "utils/homeImages";
 import Button from "@material-ui/core/Button";
 

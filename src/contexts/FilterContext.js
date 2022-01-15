@@ -1,94 +1,63 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 
 export const FilterContext = createContext();
 
-function FilterProvider({ children }) {
-  const [prevName, setPrevName] = useState(null);
-  const [prevPrice, setPrevPrice] = useState(null);
-  const [prevRate, setPrevRate] = useState("");
-  const [prevSearch, setPrevSearch] = useState("");
-  const [selectedRadio, setSelectedRadio] = useState(null);
-  const [selectedDrop, setSelectedDrop] = useState("Featured");
-  const [nameActive, setNameActive] = useState(null);
+export default function FilterProvider({ children }) {
+  const [prevFilter, setPrevFilter] = useState({
+    prevName: null,
+    prevPrice: null,
+    prevRate: null,
+    selectedRadio: null,
+    prevSearch: "",
+    selectedDrop: "Feature",
+  });
 
-  const [isDisplay, setIsDisplay] = useState(true)
- 
-  const [filter,setFilter] =useState({
-    _limit:16,
-    _page:1,
+  const [filter, setFilter] = useState({
+    _limit: 16,
+    _page: 1,
+  });
+
+  const [isDisplay, setIsDisplay] =useState({
+    isDisplayProduct:true,
+    isDisplayCart:false,
+    isDisplayHeader:false
 
   })
 
-
-  const handlePrevFilter = (type, value) => {
-    switch (type) {
-      case "name":
-        setPrevPrice(null);
-        setPrevRate(null);
-        setPrevSearch(null)
-        setSelectedDrop("Featured");
-
-        break;
-/*   case "price":
-        setPrevPrice(value);
-        setPrevRate(null);
-        setSelectedDrop("Featured");
-        setPrevSearch(null)
-        break;
-      case "rate":
-        setPrevRate(value);
-        setPrevPrice(null);
-        setSelectedRadio(null);
-        setSelectedDrop("Featured");
-        break;
-      case "search":
-        setPrevName(null);
-        setPrevPrice(null);
-        setPrevRate(null);
-        setSelectedRadio(null);
-        setSelectedDrop("Featured");
-        setNameActive(null);
-        break;
-      case "sort":
-        setPrevPrice(null);
-        setPrevRate(null);
-        setSelectedRadio(null);
-        setSelectedDrop("Featured");
-        break;
-        case "drop":
-          setSelectedDrop(value); */
-      case "pagination":
-        setPrevName(null);
-        setSelectedDrop("Featured");
-        break;
-        break; 
-      default:
-        break;
-    }
-
-    return {
-      prevName,
-      prevPrice,
-      prevRate,
-      prevSearch,
-      selectedRadio,
-      selectedDrop,
-      nameActive,
-      setPrevName,
-      setPrevPrice,
-      setPrevRate,
-      setPrevSearch,
-      setSelectedRadio,
-      setSelectedDrop,
-      setNameActive,
+  useEffect(() => {
+    const scrollShowNav = () => {
+      if (window.scrollY >= 120) {
+        setIsDisplay({
+          ...isDisplay,
+          isDisplayHeader:true
+        });
+      } else {
+        setIsDisplay({
+          ...isDisplay,
+          isDisplayHeader:false
+        });
+      }
     };
-  };
+
+    window.addEventListener("scroll", scrollShowNav);
+
+    return window.addEventListener("scroll", scrollShowNav);
+  }, []);
 
   return (
-    <FilterContext.Provider value={{ handlePrevFilter, filter,setFilter,setPrevSearch,isDisplay, setIsDisplay }}>
+    <FilterContext.Provider
+      value={{
+        filter,
+        setFilter,
+        prevFilter,
+        setPrevFilter,
+        isDisplay, 
+        setIsDisplay
+      }}
+    >
       {children}
     </FilterContext.Provider>
   );
 }
 
-export default FilterProvider;
+

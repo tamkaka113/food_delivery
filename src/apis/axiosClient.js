@@ -1,6 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
-import { useEffect } from "react";
+
 
 const baseURL = "https://ig-food-menus.herokuapp.com/";
 

@@ -1,14 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 
-// material ui core
 import { Button } from "@material-ui/core";
-
 import "./styles.scss";
-
-function Dialog(props) {
+export default function Dialog(props) {
   const { isShow, setIsShow } = props;
-
 
   const hideDialog = () => {
     setIsShow(false);
@@ -45,9 +39,4 @@ function Dialog(props) {
   );
 }
 
-Dialog.propsTypes = {
-  isShow: PropTypes.bool,
-  setIsShow: PropTypes.func,
-};
 
-export default Dialog;

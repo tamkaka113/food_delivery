@@ -5,9 +5,10 @@
   position: relative;
 
   padding-bottom: 10px;
-
+ 
   cursor: pointer;
-
+ 
+  
   &__img-wrapper {
     position: relative;
 
@@ -22,7 +23,10 @@
       height: 16.5rem;
     }
   }
-
+  &__img-wrapper.active {
+    filter: contrast(50%)
+  }
+ 
   &__rate {
     position: absolute;
     bottom: 0;
@@ -36,7 +40,7 @@
     font-size: 3rem;
     font-weight: 600;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.45);
-
+    margin-right: 2px;
     color: $primary-white-color;
   }
 
@@ -49,12 +53,23 @@
     fill: $primary-white-color;
   }
 
+  &__viewed-product {
+    color:  $primary-white-color;
+    font-size: 1.2rem;
+    margin-left: 2px;
+  font-weight: 500;
+  }
   &__img {
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
 
+  &__product-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+ 
   &__name {
     font-weight: 600;
     font-size: 1.7rem;

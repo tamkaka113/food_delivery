@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 import { Container } from "@material-ui/core";
 import BurgerNavbar from "./BurgerNavbar";
 import { useHistory } from "react-router-dom";
@@ -11,47 +11,30 @@ import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
 import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
-import { ApiContext } from "contexts/ApiContext";
+
 import { FilterContext } from "contexts/FilterContext";
 import Logo from "../../assets/svgs/Common/logo.svg";
-import queryString from "query-string";
 import "./style.scss";
-import Cart from 'components/Cart/Cart'
-export default function Header() {
-  const { getProductList } = useContext(ApiContext);
-  const { filter, setFilter } = useContext(FilterContext);
+import Cart from "components/Cart/Cart";
 
-  const [isStickyTop, setIsStickyTop] = useState(false);
+export default function Header() {
+  const {  isDisplay,setIsDisplay } = useContext(FilterContext);
+
   const [isShowBurgerNav, setIsShowBurgerNav] = useState(false);
-  const [isShowDialog, setIsShowDialog] = useState(false);
-  const [totalQnt, setTotalQnt] = useState(0);
+  const cartReducer = useSelector((state) => state?.CartReducer);
+
+
   const history = useHistory();
   const showBurgerNav = () => {
     setIsShowBurgerNav(!isShowBurgerNav);
   };
 
-  // handle scroll
-  useEffect(() => {
-    const scrollShowNav = () => {
-      if (window.scrollY >= 100) {
-        setIsStickyTop(true);
-      } else {
-        setIsStickyTop(false);
-      }
-    };
-
-    window.addEventListener("scroll", scrollShowNav);
-
-    return window.addEventListener("scroll", scrollShowNav);
-  }, []);
-
-  const handleToShopView = () => {
  
-  };
+  const handleToShopView = () => {};
 
   return (
     <div>
-      <header className={"navbar active"} style={{ display: "block" }}>
+      <header className={isDisplay.isDisplayHeader ? "navbar active": 'navbar'} style={{ display: "block" }}>
         <Container>
           <div className={"navbar__container"}>
             <EmojiFoodBeverageIcon
@@ -74,7 +57,7 @@ export default function Header() {
                   <HomeIcon />
                   Home
                 </li>
-                <li className="navbar__item" onClick={()=>handleToShopView()} >
+                <li className="navbar__item" onClick={() => handleToShopView()}>
                   <RestaurantMenuIcon />
                   Order online
                 </li>
@@ -91,8 +74,13 @@ export default function Header() {
 
             <div className="navbar--right">
               <div className="navbar__cart">
-                <ShoppingCartIcon />
-                <div className="navbar__cart-qnt">0</div>
+                <ShoppingCartIcon
+                  onClick={() =>  setIsDisplay({
+                    ...isDisplay,
+                    isDisplayCart:true
+                  })}
+                />
+                <div className="navbar__cart-qnt">{cartReducer?.cart.length < 1 ? 0 :cartReducer?.amount}</div>
               </div>
             </div>
           </div>

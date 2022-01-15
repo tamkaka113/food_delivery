@@ -1,27 +1,16 @@
-import { useEffect, useRef } from "react";
+import { homeProductsData } from "utils/HomeData";
 
-import { homeProductsData } from "../../../../utils/HomeData"
-
-
-
-
-// material ui
 import { Container } from "@material-ui/core";
 
-// swiper js
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper/core";
 
-// swiper scss
 import "swiper/components/pagination/pagination.scss";
 
 import HomeProductDetail from "./HomeProductDetail";
 import Dialog from "Dialog";
 
-
-
-// swiper scss
- import "swiper/swiper.scss"; 
+import "swiper/swiper.scss";
 
 import "./styles.scss";
 
@@ -29,20 +18,15 @@ import "./styles.scss";
 SwiperCore.use([Autoplay, Pagination]);
 
 function HomeProducts() {
- 
-
-
   return (
     <section className="home-products">
       <Dialog />
       <Container>
-        <div className="primary-yellow-text">
-          Quality Products
-        </div>
+        <div className="primary-yellow-text">Quality Products</div>
         <h2 className="primary-heading-text">
           Burger as expected <strong>delicious</strong> one
         </h2>
-        <div  className="home-products__container">
+        <div className="home-products__container">
           <Swiper
             loop
             speed={800}

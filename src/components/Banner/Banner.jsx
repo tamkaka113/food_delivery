@@ -1,19 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-
-// material ui icons
 import LinearScaleIcon from "@material-ui/icons/LinearScale";
-
-
-
 import CommonBannerImg from "assets/images/Common/banner.jpg";
-
 import "./styles.scss";
 
-function Banner() {
-
-
-
+export default function Banner() {
   return (
     <section
       className="banner"
@@ -30,5 +20,3 @@ function Banner() {
     </section>
   );
 }
-
-export default Banner;

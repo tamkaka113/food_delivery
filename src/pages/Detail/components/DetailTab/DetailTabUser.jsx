@@ -1,16 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-
-
-// material ui core
 import { Avatar } from '@material-ui/core';
-
-// material ui icons
 import StarIcon from '@material-ui/icons/Star';
-
 import PrimaryButton from 'components/PrimaryButton/PrimaryButton';
-
 import './DetailTabUser.scss';
 
 function DetailTabUser({ colors, commentRef }) {

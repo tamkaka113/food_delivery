@@ -30,11 +30,11 @@ const ApiProvider = ({ children }) => {
 
   const getProductList = async (type, params) => {
 
-    console.log(type,params)
+
     dispatch(getProductListStartAction());
     try {
       const data = await shopApi.getAll(type, params);
-       console.log(data)
+ 
       dispatch(getProductListSuccessAction(data));
       history.push({
         pathname: type,

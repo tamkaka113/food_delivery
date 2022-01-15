@@ -1,18 +1,16 @@
-import { useContext } from "react";
 import { useSelector } from "react-redux";
-
 import CartItem from "./CartItem";
-
 import "./styles.scss";
 
-function CartItems() {
+export default function CartItems() {
+  const cartProducts = useSelector((state) => state?.CartReducer?.cart);
+
   return (
     <div className="cart-items">
-  
-        <CartItem />
-   
+      {cartProducts?.map((product) => (
+        <CartItem key={product.id} product={product} />
+      ))}
     </div>
   );
 }
 
-export default CartItems;

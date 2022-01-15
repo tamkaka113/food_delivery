@@ -7,7 +7,7 @@ import ShopHandle from "./ShopHandle";
 
 import "./styles.scss";
 
-function ShopContent() {
+export default function ShopContent() {
   const [isFlex, setIsFlex] = useState(false);
 
 
@@ -18,5 +18,3 @@ function ShopContent() {
     </div>
   );
 }
-
-export default ShopContent;

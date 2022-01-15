@@ -1,88 +1,141 @@
-import { useContext } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useHistory, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {useEffect} from 'react'
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-/* import { AuthContext } from 'contexts/AuthContext'; */
-/* import useFirestoreProducts from 'hooks/useFirestoreProducts'; */
+import "react-lazy-load-image-component/src/effects/blur.css";
 
-// lazy load img js
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import StarIcon from "@material-ui/icons/Star";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import RoomIcon from "@material-ui/icons/Room";
+import { ToastContainer, toast } from "react-toastify";
+import "./styles.scss";
+import { ApiContext } from "contexts/ApiContext";
+import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+export default function ShopProduct(product) {
+  const { id, name, img, dsc, price, rate, country } = product;
+  const [viewedProduct, setViewedProduct] = useState(false);
+  const [showText, setShowText] =useState(false)
 
-// lazy load img css
-import 'react-lazy-load-image-component/src/effects/blur.css';
+  const params = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const notify = () =>
+    toast.success("🦄 You  have added a product successfully!", {
+      autoClose: 2000,
+    });
 
-// material ui icons
-import StarIcon from '@material-ui/icons/Star';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import RoomIcon from '@material-ui/icons/Room';
+  const cartReducer = useSelector((state) => state?.CartReducer?.viewedProduct);
+
+
+  const handleAddProduct = (product) => {
+    dispatch({ type: "add/product", payload: product });
+    if (product && cartReducer?.amount) {
+      notify();
+    }
+  };
+  const moveToTop = () => {
+    window.scrollTo({
+      top: 250,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+   const checkViewProduct =()=> {
+    const viewedProductList = cartReducer?.find(
+      (item) => item.id === product.id
+    );
+  
+    if (viewedProductList) {
+      setViewedProduct(true)
+    }
+
+   }
+   checkViewProduct()
+  }, [params?.id,cartReducer])
 
 
 
-import './styles.scss';
+  const handleToDetail = (product) => {
+    dispatch({ type: "viewed/product", payload: product });
 
-export default  function ShopProduct(props) {
-  const { id, name, img, dsc, price, rate, country } =
-    props;
-
-   const params = useParams()
-    const history = useHistory()
-  const handleAddToFirestore = (type) => {
    
+
+    moveToTop();
+    history.push(`/shop/${params.name}/${product?.id}`);
   };
 
-  const handleToDetail = (id) => {
-
-    history.push(`/shop/${params.name}/${id}`);
-    
-  };
+  const handleShowText = () => {
+    setShowText(true)
+  }
+  const handleRemoveText = () => {
+    setShowText(false)
+   }
 
   return (
-    <div id={id} className='shop-product'>
+    <div id={id} className="shop-product ">
       <div
-        onClick={() => handleToDetail(id)}
-        className='shop-product__img-wrapper'>
+        onClick={() => handleToDetail(product)}
+        onMouseEnter={handleShowText}
+        onMouseLeave={handleRemoveText}
+
+        className={`shop-product__img-wrapper ${viewedProduct ? "active" : ""}`}
+      >
+        
         <LazyLoadImage
-          effect='blur'
+          effect="blur"
           src={img}
-          className='shop-product__img'
+          className="shop-product__img "
           alt={name}
-          width='100%'
-          height='100%'></LazyLoadImage>
-        <div className='shop-product__rate'>
+          width="100%"
+          height="100%"
+
+        >
+          
+        </LazyLoadImage>
+           
+        <div className="shop-product__rate">
           <StarIcon />
           <span>{rate}</span>
+          {viewedProduct && showText ? <div className="shop-product__product-wrapper">
+            <RemoveRedEyeIcon/> <p className="shop-product__viewed-product"> You have viewed this meal </p> </div>:<p></p>
+           }
         </div>
       </div>
 
-      <div onClick={() => handleToDetail(id)} className='shop-product__content'>
-        <div className='shop-product__name'>{name}</div>
-        <p className='shop-product__description'>{dsc}</p>
-        <div className='shop-product__row'>
-          <div className='shop-product__location'>
+      <div
+        onClick={() => handleToDetail(product)}
+        className="shop-product__content"
+      >
+        <div className="shop-product__name">{name}</div>
+        <p className="shop-product__description">{dsc}</p>
+        <div className="shop-product__row">
+          <div className="shop-product__location">
             <RoomIcon />
             <span>{country}</span>
           </div>
-          <div className='shop-product__price'>${price}</div>
+          <div className="shop-product__price">${price}</div>
         </div>
       </div>
 
-      <div className='shop-product__btns'>
-        <div
-          onClick={() => handleAddToFirestore('wishlist')}
-          className='shop-product__btn'>
+      <div className="shop-product__btns">
+        <div className="shop-product__btn">
           <FavoriteBorderIcon />
         </div>
         <div
-          onClick={() => handleAddToFirestore('success')}
-          className='shop-product__btn'>
+          onClick={() => handleAddProduct(product)}
+          className="shop-product__btn"
+        >
           <ShoppingCartOutlinedIcon />
         </div>
+        <ToastContainer style={{ fontSize: "15px" }} />
       </div>
-      <div className='shop-product__label'>Favourite</div>
+      <div className="shop-product__label">Favourite</div>
+
+  
     </div>
   );
 }
-
-
-

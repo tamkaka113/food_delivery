@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
 // material ui core
 import { Button } from "@material-ui/core";
 
@@ -9,47 +9,63 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-
 import "./CartItem.scss";
 
-function CartItem() {
+export default function CartItem({ product }) {
+  const { name, price, img, quantity } = product;
+  const dispatch = useDispatch();
 
+  const CartProduct = useSelector((state) => state?.CartReducer?.cart);
 
- 
+  const handleRemoveProduct = (product) => {
+    dispatch({ type: "remove/product", payload: product });
+  };
 
+  const handleIncreaseProduct = (product) => {
+    dispatch({ type: "increment/product", payload: product });
+  };
+
+  useEffect(() => {
+    dispatch({ type: "total/product" });
+  }, [quantity, CartProduct.length]);
+
+  const handleDecreaseProduct = (product) => {
+    dispatch({ type: "decrement/product", payload: product });
+  };
   return (
     <div className="cart-item">
-  {/*     <div className="cart-item__img">
+      <div className="cart-item__img">
         <img src={img} alt="Cart product" />
-      </div> */}
+      </div>
 
       <div className="cart-item__content">
-        <div className="cart-item__name">pizza</div>
-        <div className="cart-item__price">$20</div>
+        <div className="cart-item__name">{name}</div>
+        <div className="cart-item__price">${price}</div>
         <div className="cart-item__handle">
-          <Button >
+          <Button
+            onClick={() => {
+              handleDecreaseProduct(product);
+            }}
+          >
             <RemoveIcon />
           </Button>
-          <span className="cart-item__qnt">5</span>
-          <Button >
+          <span className="cart-item__qnt">{quantity}</span>
+          <Button
+            onClick={() => {
+              handleIncreaseProduct(product);
+            }}
+          >
             <AddIcon />
           </Button>
         </div>
       </div>
 
       <Button
-               className="cart-item__rm"
+        className="cart-item__remove"
+        onClick={() => handleRemoveProduct(product)}
       >
         <DeleteOutlineIcon />
       </Button>
     </div>
   );
 }
-
-CartItem.propTypes = {
-  cartProducts: PropTypes.object,
-  handleAddToFirestore: PropTypes.func.isRequired,
-  handleRemoveFromFirestore: PropTypes.func.isRequired,
-};
-
-export default CartItem;

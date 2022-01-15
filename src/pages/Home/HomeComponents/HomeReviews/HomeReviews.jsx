@@ -1,19 +1,11 @@
-import { useEffect, useRef } from "react";
-
 import { homeReviewsData } from "utils/HomeData";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper/core";
 
-// material ui core
 import { Container } from "@material-ui/core";
 
-// swiper js
-
-// swiper scss
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
-
 
 import "./styles.scss";
 
@@ -21,13 +13,11 @@ import "./styles.scss";
 SwiperCore.use([Autoplay, Pagination]);
 
 export default function HomeReviews() {
-  let containerRef = useRef(null);
 
-  
 
   return (
     <section className="home-reviews">
-      <Container >
+      <Container>
         <Swiper
           speed={500}
           spaceBetween={20}
@@ -57,8 +47,6 @@ export default function HomeReviews() {
           ))}
         </Swiper>
       </Container>
-
     </section>
   );
 }
-

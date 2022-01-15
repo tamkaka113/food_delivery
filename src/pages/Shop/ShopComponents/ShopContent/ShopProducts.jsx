@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Pagination from "@material-ui/lab/Pagination";
 import { Grid } from "@material-ui/core";
 import shopApi from "apis/shopApi";
-// material ui icons
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ShopProduct from "components/ShopProduct/ShopProduct";
 import ShopEmpty from "./ShopEmpty";
 import "./ShopProducts.scss";
@@ -17,13 +16,12 @@ export default function ShopProducts() {
   const isLoading = useSelector((state) => state.ProductReducer.loading);
   const [productLength, setProductLength] = useState(null);
   const { totalPage, getProductList } = useContext(ApiContext);
-  const { handlePrevFilter, filter, setFilter, isDisplay } =
+  const {  filter, setFilter, isDisplay,prevFilter,setPrevFilter } =
     useContext(FilterContext);
-  const { prevPrice, prevRate, prevSearch } = handlePrevFilter();
   const { name } = useParams();
 
   const totalRow =
-    prevPrice || prevRate || prevSearch
+  prevFilter.prevPrice || prevFilter.prevRate || prevFilter.prevSearch
       ? Math.ceil(productLength / 16)
       : Math.ceil(totalPage[name] / 16);
   const handleChangePage = (nextPage) => {
@@ -33,27 +31,32 @@ export default function ShopProducts() {
     });
   };
 
+
   useEffect(() => {
     const getFilteredProductsLength = async () => {
-      if (prevPrice || prevRate || prevSearch) {
+      if (prevFilter.prevPrice || prevFilter.prevRate || prevFilter.prevSearch) {
         const data = await shopApi.getAll(
           name,
 
-          prevPrice || prevRate || prevSearch
+          prevFilter.prevPrice || prevFilter.prevRate || prevFilter.prevSearch
         );
         setProductLength(data.length);
       }
     };
 
     getFilteredProductsLength();
-  }, [name, prevPrice, prevRate, prevSearch]);
+  }, [name, prevFilter.prevPrice, prevFilter.prevRate, prevFilter.prevSearch]);
 
   const { _page } = filter;
   useEffect(() => {
     if (_page > 1) {
       getProductList(name, filter);
 
-      handlePrevFilter("pagination");
+      setPrevFilter({
+        ...prevFilter,
+        prevName:null,
+        selectedDrop:'Feature'
+      })
     }
   }, [filter]);
 
@@ -65,6 +68,10 @@ export default function ShopProducts() {
     );
   }
 
+const handleViewedProduct =()=>{
+  
+}
+
   return (
     <>
       {shopProduct?.list.length <= 0 && <ShopEmpty />}
@@ -73,7 +80,9 @@ export default function ShopProducts() {
       >
         {shopProduct?.list &&
           shopProduct?.list?.map((item) => (
-            <ShopProduct key={item.id} {...item} />
+            <ShopProduct key={item.id} {...item}
+            handleViewedProduct ={handleViewedProduct}
+            />
           ))}
       </div>
       <Grid container justifyContent="center">

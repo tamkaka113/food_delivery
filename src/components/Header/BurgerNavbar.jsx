@@ -1,22 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-
-// material ui core
 import { Avatar } from "@material-ui/core";
-
-// material ui icons
 import HomeIcon from "@material-ui/icons/Home";
 import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
-
 import "./BurgerNavbar.scss";
 
-export default function  BurgerNavbar(props) {
-
-const  {isShow, showBurgerNav} =props
-
+export default function BurgerNavbar(props) {
+  const { isShow, showBurgerNav } = props;
 
   return (
     <div className="burger-nav">
@@ -25,8 +17,6 @@ const  {isShow, showBurgerNav} =props
           isShow ? "burger-nav__content active" : "burger-nav__content"
         }
       >
-     
-
         <ul className="burger-nav__list">
           <li className="burger-nav__item">
             <HomeIcon />
@@ -58,6 +48,3 @@ const  {isShow, showBurgerNav} =props
     </div>
   );
 }
-
-
-

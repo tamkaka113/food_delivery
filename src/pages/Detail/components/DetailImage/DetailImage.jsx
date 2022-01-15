@@ -11,8 +11,8 @@ import { MOBILE_BREAKPOINT } from "constants/breakpoints";
 import "./styles.scss";
 
 function DetailImage(props) {
-  const { product } = props;
-  const { img } = product ? product : "";
+  const { selectedProduct } = props;
+  const { img } = selectedProduct ? selectedProduct : "";
 
   const [isAtDesktop, setIsAtDesktop] = useState(true);
   const [isLast, setIsLast] = useState(false);

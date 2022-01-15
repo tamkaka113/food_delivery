@@ -50,9 +50,7 @@ const priceOptions = [
 
 function ShopFilters() {
   const { getProductList } = useContext(ApiContext);
-  const { handlePrevFilter, filter, setFilter } = useContext(FilterContext);
-  const { selectedRadio, setSelectedRadio,setPrevRate,setPrevPrice,prevPrice,prevRate } = handlePrevFilter();
-  const history = useHistory();
+  const { filter, setFilter,prevFilter,setPrevFilter  } = useContext(FilterContext);
   const [nameMenu, setNameMenu] = useState(null);
 
 
@@ -63,9 +61,15 @@ function ShopFilters() {
       _limit: 16,
       _page: 1,
     });
-    setSelectedRadio(null);
     setNameMenu(params);
-    handlePrevFilter('name', params)
+     setPrevFilter({
+      prevName:null,
+      prevPrice:null,
+      prevRate:null,
+      selectedRadio:null,
+      prevSearch:'',
+      selectedDrop:'Feature'
+     })
 
   
   };
@@ -77,11 +81,21 @@ function ShopFilters() {
   }, [nameMenu]); 
 
   const handleChangebyPrice = (e) => {
-    setSelectedRadio(e.target.value);
+    setPrevFilter({
+      ...prevFilter,
+      selectedRadio:e.target.value
+    })
+
   };
 
   const handleFilterbyByPrice = (content, params) => {
-    setPrevPrice(params)
+    setPrevFilter({
+      ...prevFilter,
+      prevSearch:null,
+      selectedDrop:'Feature',
+      prevRate:null,
+      prevPrice:params
+    })
     switch (content) {
       case "Under $100":
         setFilter({
@@ -117,14 +131,21 @@ function ShopFilters() {
     }
   };
 
+
   useEffect(() => {
-    if (prevPrice) {
+    if (prevFilter.prevPrice) {
       getProductList(name, filter);
     }
-  }, [prevPrice]);
+  }, [prevFilter.prevPrice]);
 
   const handleFilterByRate = (params) => {
-    setPrevRate({rate_like:params})
+    setPrevFilter({
+      ...prevFilter,
+      prevSearch:null,
+      selectedDrop:'Feature',
+      selectedRadio:null,
+      prevRate:{ rate_like:params}
+    })
     setFilter({
       _limit:16,
       _page:1,
@@ -136,11 +157,11 @@ function ShopFilters() {
 
 
   useEffect(() => {
-    if(prevRate) {
+    if(prevFilter.prevRate) {
 
       getProductList(name, filter);
     }
-  }, [prevRate])
+  }, [prevFilter.prevRate])
   return (
     <div className="shop-filters">
       <h2 className="shop-filters__title">Popular</h2>
@@ -171,7 +192,7 @@ function ShopFilters() {
             value={content}
             content={content}
             handleFilterbyByPrice={() => handleFilterbyByPrice(content, range)}
-            checked={selectedRadio === content}
+            checked={prevFilter.selectedRadio === content}
             handleChangebyPrice={handleChangebyPrice}
           />
         ))}

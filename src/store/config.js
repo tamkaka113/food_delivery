@@ -14,7 +14,7 @@ enhancers.push(devToolsExtension)
   const persistConfig = {
     key: 'root',
     storage,
-  whitelist:["ProductReducer"]
+  whitelist:["ProductReducer", "CartReducer"]
   
   }
 
