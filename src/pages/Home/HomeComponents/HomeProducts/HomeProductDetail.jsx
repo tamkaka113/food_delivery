@@ -1,10 +1,8 @@
 
 
 import "./HomeProductDetail.scss";
-
 export default function HomeProductDetail(props) {
   const { img, name, description, price } = props;
-
   return (
     <div className="home-product">
       <div className="home-product__wrapper">

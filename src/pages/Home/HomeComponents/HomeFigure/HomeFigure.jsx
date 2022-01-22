@@ -1,23 +1,11 @@
 import { useState} from "react";
-
 import { homeFigureData } from "utils/HomeData";
-
-// material ui core
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-
-
-
 import { Figure } from "utils/homeImages";
-
 import "./styles.scss";
-
 export default function HomeFigure() {
   const [isShow, setIsShow] = useState(false);
-
-  
-
-
   const toggleModal = () => {
     setIsShow(!isShow);
   };

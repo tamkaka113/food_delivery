@@ -1,20 +1,14 @@
 import { homeReviewsData } from "utils/HomeData";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper/core";
-
 import { Container } from "@material-ui/core";
-
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
-
 import "./styles.scss";
-
 // swiper modules
 SwiperCore.use([Autoplay, Pagination]);
 
 export default function HomeReviews() {
-
-
   return (
     <section className="home-reviews">
       <Container>

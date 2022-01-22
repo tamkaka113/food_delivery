@@ -1,19 +1,13 @@
 import { homeProductsData } from "utils/HomeData";
-
 import { Container } from "@material-ui/core";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper/core";
-
 import "swiper/components/pagination/pagination.scss";
-
 import HomeProductDetail from "./HomeProductDetail";
 import Dialog from "Dialog";
-
 import "swiper/swiper.scss";
 
 import "./styles.scss";
-
 // swiper modules
 SwiperCore.use([Autoplay, Pagination]);
 

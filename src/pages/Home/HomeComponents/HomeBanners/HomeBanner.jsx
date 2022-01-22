@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
-import { Container, Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 
 import "./HomeBanner.scss";
 import PrimaryButton from "components/PrimaryButton/PrimaryButton";
@@ -24,7 +24,7 @@ export default function HomeBanner(props) {
 
     const params = queryString.stringify(filter);
 
-    getProductList("best-foods", filter);
+    getProductList("our-foods", filter);
     history.push(`shop/${params}?_limit=16&_page=1`);
   };
 

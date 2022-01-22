@@ -6,55 +6,17 @@ import Checkbox from "components/Checkbox/Checkbox";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 
-import { Bread, Burger, Drinks, Pizza, Sandwich } from "utils/shopSvgs";
-import { ApiContext } from "contexts/ApiContext";
 
+import { ApiContext } from "contexts/ApiContext";
+import {typeOptions,priceOptions} from 'utils/data'
 import { FilterContext } from "contexts/FilterContext";
 
 import "./styles.scss";
-const typeOptions = [
-  {
-    img: Burger,
-    name: "Burgers",
-    type: "burgers",
-  },
-  {
-    img: Bread,
-    name: "Breads",
-    type: "breads",
-  },
-  {
-    img: Sandwich,
-    name: "Sandwiches",
-    type: "sandwiches",
-  },
-  {
-    img: Drinks,
-    name: "Drinks",
-    type: "drinks",
-  },
-  {
-    img: Pizza,
-    name: "Pizzas",
-    type: "pizzas",
-  },
-];
 
-const priceOptions = [
-  { content: "Under $100", range:{ price_lte: 100 } },
-  { content: "$50 to $100", range: { price_gte: 50, price_lte: 100 }},
-  { content: "Under $50", range:{ price_lte: 50 } },
-  { content: "Above $100", range:{ price_gte: 50 } },
-];
-
-
-function ShopFilters() {
+export default function ShopFilters() {
   const { getProductList } = useContext(ApiContext);
   const { filter, setFilter,prevFilter,setPrevFilter  } = useContext(FilterContext);
   const [nameMenu, setNameMenu] = useState(null);
-
-
-  
   const { name } = useParams();
   const handleFilterbyName = (params) => {
     setFilter({
@@ -80,7 +42,7 @@ function ShopFilters() {
     }
   }, [nameMenu]); 
 
-  const handleChangebyPrice = (e) => {
+  const handleOnChange = (e) => {
     setPrevFilter({
       ...prevFilter,
       selectedRadio:e.target.value
@@ -155,7 +117,6 @@ function ShopFilters() {
   
   };
 
-
   useEffect(() => {
     if(prevFilter.prevRate) {
 
@@ -193,7 +154,7 @@ function ShopFilters() {
             content={content}
             handleFilterbyByPrice={() => handleFilterbyByPrice(content, range)}
             checked={prevFilter.selectedRadio === content}
-            handleChangebyPrice={handleChangebyPrice}
+            handleOnChange={handleOnChange}
           />
         ))}
       </form>
@@ -236,4 +197,3 @@ function ShopFilters() {
   );
 }
 
-export default ShopFilters;

@@ -3,7 +3,6 @@ import RootReducer from './RootReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunkMiddleware from 'redux-thunk'
-
   const middleware = [
     thunkMiddleware,
 ]

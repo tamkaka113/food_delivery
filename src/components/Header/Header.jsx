@@ -11,30 +11,43 @@ import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
 import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
-
 import { FilterContext } from "contexts/FilterContext";
 import Logo from "../../assets/svgs/Common/logo.svg";
 import "./style.scss";
 import Cart from "components/Cart/Cart";
-
 export default function Header() {
-  const {  isDisplay,setIsDisplay } = useContext(FilterContext);
+  const { isDisplay, setIsDisplay } = useContext(FilterContext);
 
   const [isShowBurgerNav, setIsShowBurgerNav] = useState(false);
   const cartReducer = useSelector((state) => state?.CartReducer);
-
+  const [isHeader, setIsHeader] = useState(false);
 
   const history = useHistory();
   const showBurgerNav = () => {
     setIsShowBurgerNav(!isShowBurgerNav);
   };
+  useEffect(() => {
+    const scrollShowNav = () => {
+      if (window.scrollY >= 100) {
+        setIsHeader(true);
+      } else {
+        setIsHeader(false);
+      }
+    };
 
- 
+    window.addEventListener("scroll", scrollShowNav);
+
+    return window.addEventListener("scroll", scrollShowNav);
+  }, []);
+
   const handleToShopView = () => {};
 
   return (
     <div>
-      <header className={isDisplay.isDisplayHeader ? "navbar active": 'navbar'} style={{ display: "block" }}>
+      <header
+        className={isHeader ? "navbar active" : "navbar"}
+        style={{ display: "block" }}
+      >
         <Container>
           <div className={"navbar__container"}>
             <EmojiFoodBeverageIcon
@@ -75,12 +88,16 @@ export default function Header() {
             <div className="navbar--right">
               <div className="navbar__cart">
                 <ShoppingCartIcon
-                  onClick={() =>  setIsDisplay({
-                    ...isDisplay,
-                    isDisplayCart:true
-                  })}
+                  onClick={() =>
+                    setIsDisplay({
+                      ...isDisplay,
+                      isDisplayCart: true,
+                    })
+                  }
                 />
-                <div className="navbar__cart-qnt">{cartReducer?.cart.length < 1 ? 0 :cartReducer?.amount}</div>
+                <div className="navbar__cart-qnt">
+                  {cartReducer?.cart.length < 1 ? 0 : cartReducer?.amount}
+                </div>
               </div>
             </div>
           </div>

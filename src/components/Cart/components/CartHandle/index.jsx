@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 import PrimaryButton from "components/PrimaryButton/PrimaryButton";
-
 import "./styles.scss";
 
 function CartHandle() {
-    
   const cartReducer = useSelector((state) => state?.CartReducer);
 
-  
   const [isActive, setIsActive] = useState(false);
-
-
 
   const toggleDropUp = () => {
     setIsActive(!isActive);
@@ -46,7 +40,9 @@ function CartHandle() {
 
       <div className="cart-handle__total">
         <span className="cart-handle__txt">Total</span>
-        <span className="cart-handle__price">${cartReducer?.cart.length < 1 ? 0: cartReducer?.totalPrice}</span>
+        <span className="cart-handle__price">
+          ${cartReducer?.cart.length < 1 ? 0 : cartReducer?.totalPrice}
+        </span>
       </div>
 
       <div className="cart-handle__btns">

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import shopApi from "apis/shopApi";
 import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-
 import Banner from "components/Banner/Banner";
 import DetailImage from "./components/DetailImage/DetailImage";
 import DetailTab from "./components/DetailTab/DetailTab";
@@ -14,9 +13,6 @@ import DetailProducts from "./DetailProducts/DetailProducts";
 export default function Detail() {
   const { name, id } = useParams();
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-
-
   useEffect(() => {
     const getProducts = async () => {
       const data = await shopApi.getAll(name, {id: id });

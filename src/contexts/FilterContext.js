@@ -20,29 +20,10 @@ export default function FilterProvider({ children }) {
   const [isDisplay, setIsDisplay] =useState({
     isDisplayProduct:true,
     isDisplayCart:false,
-    isDisplayHeader:false
 
   })
 
-  useEffect(() => {
-    const scrollShowNav = () => {
-      if (window.scrollY >= 120) {
-        setIsDisplay({
-          ...isDisplay,
-          isDisplayHeader:true
-        });
-      } else {
-        setIsDisplay({
-          ...isDisplay,
-          isDisplayHeader:false
-        });
-      }
-    };
 
-    window.addEventListener("scroll", scrollShowNav);
-
-    return window.addEventListener("scroll", scrollShowNav);
-  }, []);
 
   return (
     <FilterContext.Provider

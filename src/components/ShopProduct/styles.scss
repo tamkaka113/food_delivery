@@ -11,7 +11,7 @@
   
   &__img-wrapper {
     position: relative;
-
+   
     height: 16.5rem;
     text-align: center;
 
@@ -24,7 +24,7 @@
     }
   }
   &__img-wrapper.active {
-    filter: contrast(50%)
+    filter: contrast(55%)
   }
  
   &__rate {
@@ -55,7 +55,7 @@
 
   &__viewed-product {
     color:  $primary-white-color;
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     margin-left: 2px;
   font-weight: 500;
   }
@@ -68,6 +68,18 @@
   &__product-wrapper {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+  &__product-wrapper svg {
+    color: $primary-white-color;
+    font-size: 18px;
   }
  
   &__name {

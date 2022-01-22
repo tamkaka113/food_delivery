@@ -1,24 +1,16 @@
 import { useEffect, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import shopApi from "apis/shopApi";
-
 import ShopProduct from "components/ShopProduct/ShopProduct";
 import { Categories } from "utils/data";
 import "./styles.scss";
-import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
-import { ListItem } from "@material-ui/core";
 import { ApiContext } from "contexts/ApiContext";
 export default function DetailProducts({ selectedProduct }) {
-  const { getProductList } = useContext(ApiContext);
-
-  const ProductList = useSelector((state) => state?.ProductReducer?.list);
 
   const { name, id } = useParams();
-  const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
 
+  const [products, setProducts] = useState([]);
 
   const checkMatch = () => {
     for (let data of Categories) {
@@ -57,8 +49,6 @@ export default function DetailProducts({ selectedProduct }) {
     getProducts();
   }, [checkMatch(), name, id, selectedProduct]);
 
- 
-
   return (
     <div className="detail-products">
       <div className="primary-yellow-text">Best foods</div>
@@ -67,9 +57,7 @@ export default function DetailProducts({ selectedProduct }) {
         {products &&
           products.map(
             (item, index) =>
-              index < 4 && <ShopProduct key={item?.id} {...item}
-               
-              />
+              index < 5 && <ShopProduct key={item?.id} {...item} />
           )}
       </div>
     </div>

@@ -1,9 +1,7 @@
 import { useEffect, useState, createContext } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
 import shopApi from "apis/shopApi";
-
 import {
   getProductListStartAction,
   getProductListSuccessAction,
@@ -15,7 +13,6 @@ const ApiContext = createContext();
 const ApiProvider = ({ children }) => {
   const [totalPage, setTotalPage] = useState(0);
   const history = useHistory();
-
 
   const dispatch = useDispatch();
 
@@ -29,12 +26,10 @@ const ApiProvider = ({ children }) => {
   }, []);
 
   const getProductList = async (type, params) => {
-
-
     dispatch(getProductListStartAction());
     try {
       const data = await shopApi.getAll(type, params);
- 
+
       dispatch(getProductListSuccessAction(data));
       history.push({
         pathname: type,
@@ -50,7 +45,6 @@ const ApiProvider = ({ children }) => {
       value={{
         getProductList,
         totalPage,
-        
       }}
     >
       {children}

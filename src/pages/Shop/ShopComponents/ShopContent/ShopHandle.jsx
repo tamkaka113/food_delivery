@@ -6,51 +6,33 @@ import SearchIcon from "@material-ui/icons/Search";
 import ViewList from "@material-ui/icons/ViewList";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./ShopHandle.scss";
-import { Categories } from "utils/data";
-const dataTypes = [
-  {
-    value: "Price: Low to High",
-    sort: "price_lth",
-  },
-  {
-    value: "Price: High to Low",
-    sort: "price_htl",
-  },
-  {
-    value: "Rate: Low to High",
-    sort: "rate_lth",
-  },
-  {
-    value: "Rate: High to Low",
-    sort: "rate_htl",
-  },
-];
-
-function ShopHandle() {
+import { Categories,dataTypes } from "utils/data";
+export default function ShopHandle() {
   const [isDrop, setIsDrop] = useState(false);
   const ref = useRef();
   const [inputValue, setInputValue] = useState("");
   const { getProductList } = useContext(ApiContext);
-  const { setFilter, filter, setIsDisplay, isDisplay,prevFilter,setPrevFilter } =
-    useContext(FilterContext);
+  const {
+    setFilter,
+    filter,
+    setIsDisplay,
+    isDisplay,
+    prevFilter,
+    setPrevFilter,
+  } = useContext(FilterContext);
   const shopProduct = useSelector((state) => state.ProductReducer.list);
-  const dispatch = useDispatch()
-
-
 
   const handleSearch = (e) => {
-    setPrevFilter ( {
+    setPrevFilter({
       ...prevFilter,
-      selectedDrop:'Feature',
-      selectedRadio:null,
-      prevSearch:{ name_like: inputValue }
-    })
+      selectedDrop: "Feature",
+      selectedRadio: null,
+      prevSearch: { name_like: inputValue },
+    });
 
-    Categories.push(inputValue)  
-
-
+    Categories.push(inputValue);
 
     setFilter({
       _limit: 16,
@@ -71,12 +53,9 @@ function ShopHandle() {
   const handleOnchange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-    
-
   };
 
   const handdleFilterBySort = (sort, value) => {
-
     switch (sort) {
       case "price_lth":
         shopProduct.sort((a, b) => a.price - b.price);
@@ -90,14 +69,14 @@ function ShopHandle() {
       case "rate_htl":
         shopProduct.sort((a, b) => b.rate - a.rate);
         break;
-    
+
       default:
         break;
     }
 
-    setPrevFilter ( {
+    setPrevFilter({
       ...prevFilter,
-     selectedDrop:value,
+      selectedDrop: value,
     });
   };
   useEffect(() => {
@@ -156,7 +135,7 @@ function ShopHandle() {
           onClick={() => {
             setIsDisplay({
               ...isDisplay,
-              isDisplayProduct:true
+              isDisplayProduct: true,
             });
           }}
           className={
@@ -167,10 +146,13 @@ function ShopHandle() {
         />
         <ViewModuleIcon
           onClick={() => {
-            setIsDisplay(false);
+            setIsDisplay({
+              ...isDisplay,
+              isDisplayProduct:false,
+            });
           }}
           className={
-            !isDisplay
+            !isDisplay.isDisplayProduct
               ? "shop-handle__display-type active"
               : "shop-handle__display-type"
           }
@@ -180,4 +162,4 @@ function ShopHandle() {
   );
 }
 
-export default ShopHandle;
+

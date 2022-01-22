@@ -1,18 +1,19 @@
-import PropTypes from "prop-types";
+
 
 import "./styles.scss";
 
-function Checkbox(props) {
-  const { content, checked, handleChangebyPrice, handleFilterbyByPrice } = props;
+export default function Checkbox(props) {
+  const { value,content, checked, handleOnChange, handleFilterbyByPrice,handleOnSale } = props;
 
   return (
     <label onClick={handleFilterbyByPrice} className="checkbox">
       <input
+      onClick={handleOnSale}
         checked={checked}
-        onChange={handleChangebyPrice}
+        onChange={handleOnChange}
         className="checkbox__input"
         type="radio"
-        name="Radio"
+        name={value}
         value={content}
       />
       <span className="checkmark"></span>
@@ -20,12 +21,3 @@ function Checkbox(props) {
     </label>
   );
 }
-
-Checkbox.propsTypes = {
-  content: PropTypes.string,
-  checked: PropTypes.bool,
-  handleOptionChange: PropTypes.func,
-  handleOptionClick: PropTypes.func,
-};
-
-export default Checkbox;

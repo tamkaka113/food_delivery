@@ -1,9 +1,7 @@
 
 
 import EmptyShopImg from "assets/svgs/Shop/empty-shop.svg";
-
 import "./ShopEmpty.scss";
-
 function ShopEmpty() {
   return (
     <div className="shop-empty">

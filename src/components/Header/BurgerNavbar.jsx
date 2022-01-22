@@ -1,5 +1,4 @@
 import React from "react";
-import { Avatar } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";

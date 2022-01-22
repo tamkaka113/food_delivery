@@ -1,19 +1,10 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-
 import { MOBILE_BREAKPOINT } from "constants/breakpoints";
-
-
-
-// react img magnifiers
-
-
 import "./styles.scss";
 
-function DetailImage(props) {
+export default function DetailImage(props) {
   const { selectedProduct } = props;
   const { img } = selectedProduct ? selectedProduct : "";
-
   const [isAtDesktop, setIsAtDesktop] = useState(true);
   const [isLast, setIsLast] = useState(false);
 
@@ -33,24 +24,17 @@ function DetailImage(props) {
 
     return window.removeEventListener("resize", handleResizeWindow);
   }, []);
-
-
-
   return (
     <div className="detail-img">
-      {isAtDesktop ? 
-        (
-          <div className={isLast ? "detail-img__main last" : "detail-img__main"}>
-          <img className="detail-img__main-mobile" src={img} alt="Foods" />
-        </div>
-        
-        )
-     : (
+      {isAtDesktop ? (
         <div className={isLast ? "detail-img__main last" : "detail-img__main"}>
           <img className="detail-img__main-mobile" src={img} alt="Foods" />
         </div>
-      ) 
-      }
+      ) : (
+        <div className={isLast ? "detail-img__main last" : "detail-img__main"}>
+          <img className="detail-img__main-mobile" src={img} alt="Foods" />
+        </div>
+      )}
 
       <div className="detail-img__slides">
         {img ? (
@@ -73,17 +57,12 @@ function DetailImage(props) {
             </div>
           </>
         ) : (
-          <>
-           
-          </>
+          <></>
         )}
       </div>
     </div>
   );
 }
 
-DetailImage.propsTypes = {
-  product: PropTypes.object,
-};
 
-export default DetailImage;
+ 

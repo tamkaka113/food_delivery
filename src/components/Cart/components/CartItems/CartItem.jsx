@@ -1,22 +1,15 @@
 import React, { useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-// material ui core
 import { Button } from "@material-ui/core";
-
-// material ui icons
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-
 import "./CartItem.scss";
 
 export default function CartItem({ product }) {
   const { name, price, img, quantity } = product;
   const dispatch = useDispatch();
-
   const CartProduct = useSelector((state) => state?.CartReducer?.cart);
-
   const handleRemoveProduct = (product) => {
     dispatch({ type: "remove/product", payload: product });
   };

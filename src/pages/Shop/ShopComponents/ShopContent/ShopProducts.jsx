@@ -16,12 +16,17 @@ export default function ShopProducts() {
   const isLoading = useSelector((state) => state.ProductReducer.loading);
   const [productLength, setProductLength] = useState(null);
   const { totalPage, getProductList } = useContext(ApiContext);
-  const {  filter, setFilter, isDisplay,prevFilter,setPrevFilter } =
+  const { filter, setFilter, isDisplay, prevFilter, setPrevFilter } =
     useContext(FilterContext);
   const { name } = useParams();
-
+  const moveToTop = () => {
+    window.scrollTo({
+      top: 250,
+      behavior: "smooth",
+    });
+  };
   const totalRow =
-  prevFilter.prevPrice || prevFilter.prevRate || prevFilter.prevSearch
+    prevFilter.prevPrice || prevFilter.prevRate || prevFilter.prevSearch
       ? Math.ceil(productLength / 16)
       : Math.ceil(totalPage[name] / 16);
   const handleChangePage = (nextPage) => {
@@ -31,10 +36,13 @@ export default function ShopProducts() {
     });
   };
 
-
   useEffect(() => {
     const getFilteredProductsLength = async () => {
-      if (prevFilter.prevPrice || prevFilter.prevRate || prevFilter.prevSearch) {
+      if (
+        prevFilter.prevPrice ||
+        prevFilter.prevRate ||
+        prevFilter.prevSearch
+      ) {
         const data = await shopApi.getAll(
           name,
 
@@ -54,10 +62,20 @@ export default function ShopProducts() {
 
       setPrevFilter({
         ...prevFilter,
-        prevName:null,
-        selectedDrop:'Feature'
-      })
-    }
+        prevName: null,
+        selectedDrop: "Feature",
+      });
+    } 
+const moveTopId =setTimeout(() => {
+      if(!isLoading) {
+
+        moveToTop()
+      }
+    }, 500);
+
+    return (()=>{
+      clearTimeout(moveTopId)
+   });
   }, [filter]);
 
   if (isLoading) {
@@ -68,21 +86,15 @@ export default function ShopProducts() {
     );
   }
 
-const handleViewedProduct =()=>{
-  
-}
-
   return (
     <>
       {shopProduct?.list.length <= 0 && <ShopEmpty />}
       <div
-        className={isDisplay ? "shop-products " : "shop-products display-flex "}
+        className={isDisplay.isDisplayProduct ? "shop-products " : "shop-products display-flex "}
       >
         {shopProduct?.list &&
           shopProduct?.list?.map((item) => (
-            <ShopProduct key={item.id} {...item}
-            handleViewedProduct ={handleViewedProduct}
-            />
+            <ShopProduct key={item.id} {...item} />
           ))}
       </div>
       <Grid container justifyContent="center">
