@@ -4,9 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper/core";
 import "swiper/components/pagination/pagination.scss";
 import HomeProductDetail from "./HomeProductDetail";
-import Dialog from "Dialog";
-import "swiper/swiper.scss";
 
+import "swiper/swiper.scss";
 import "./styles.scss";
 // swiper modules
 SwiperCore.use([Autoplay, Pagination]);
@@ -14,7 +13,7 @@ SwiperCore.use([Autoplay, Pagination]);
 function HomeProducts() {
   return (
     <section className="home-products">
-      <Dialog />
+
       <Container>
         <div className="primary-yellow-text">Quality Products</div>
         <h2 className="primary-heading-text">

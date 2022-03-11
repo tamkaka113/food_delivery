@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 
 import CartItems from "./components/CartItems";
 import CartHandle from "./components/CartHandle";
@@ -11,7 +11,7 @@ export default function Cart() {
   const CartProduct = useSelector((state) => state?.CartReducer?.cart);
 
   const { isDisplay, setIsDisplay } = useContext(FilterContext);
-
+  
   const handleCloseCart = () => {
     setIsDisplay({
       ...isDisplay,
@@ -38,7 +38,7 @@ export default function Cart() {
         ) : (
           <img src={EmptyCartImg} alt="" />
         )}
-        <CartHandle />
+        <CartHandle handleCloseCart={handleCloseCart} />
       </div>
     </div>
   );

@@ -5,25 +5,26 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import "./CartItem.scss";
-
+import { formatPrice } from "utils/helper";
+import { REMOVE_PRODUCT,INCREMENT_PRODUCT, DECREMENT_PRODUCT, TOTAL_PRODUCT } from "store/types";
 export default function CartItem({ product }) {
   const { name, price, img, quantity } = product;
   const dispatch = useDispatch();
   const CartProduct = useSelector((state) => state?.CartReducer?.cart);
   const handleRemoveProduct = (product) => {
-    dispatch({ type: "remove/product", payload: product });
+    dispatch({ type: REMOVE_PRODUCT, payload: product });
   };
 
   const handleIncreaseProduct = (product) => {
-    dispatch({ type: "increment/product", payload: product });
+    dispatch({ type: INCREMENT_PRODUCT, payload: product });
   };
 
   useEffect(() => {
-    dispatch({ type: "total/product" });
-  }, [quantity, CartProduct.length]);
+    dispatch({ type: TOTAL_PRODUCT});
+  }, [quantity, CartProduct.length,dispatch]);
 
   const handleDecreaseProduct = (product) => {
-    dispatch({ type: "decrement/product", payload: product });
+    dispatch({ type: DECREMENT_PRODUCT, payload: product });
   };
   return (
     <div className="cart-item">
@@ -33,7 +34,7 @@ export default function CartItem({ product }) {
 
       <div className="cart-item__content">
         <div className="cart-item__name">{name}</div>
-        <div className="cart-item__price">${price}</div>
+        <div className="cart-item__price">{formatPrice(price)}</div>
         <div className="cart-item__handle">
           <Button
             onClick={() => {

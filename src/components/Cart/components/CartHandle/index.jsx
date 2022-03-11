@@ -4,15 +4,33 @@ import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
 import { useSelector } from "react-redux";
 import PrimaryButton from "components/PrimaryButton/PrimaryButton";
 import "./styles.scss";
+import { useHistory } from "react-router-dom";
+import { AuthContexts } from "contexts/AuthContext";
 
-function CartHandle() {
+export default function CartHandle(props) {
   const cartReducer = useSelector((state) => state?.CartReducer);
-
+  const history = useHistory();
+  const { loginWithRedirect, isAuthenticated } = AuthContexts();
   const [isActive, setIsActive] = useState(false);
 
+  const {handleCloseCart} =props
   const toggleDropUp = () => {
     setIsActive(!isActive);
   };
+
+  const handleCheckout = (isAuthenticated) => {
+    if (!isAuthenticated) {
+      loginWithRedirect();
+    } else {
+      history.push("/checkout");
+      handleCloseCart()
+    }
+  };
+
+  const handleBuyMore = ()=> {
+    handleCloseCart()
+    history.push(`/shop/our-foods?_limit=16&_page=1`)
+  }
 
   return (
     <div className="cart-handle">
@@ -50,17 +68,19 @@ function CartHandle() {
           page="checkout"
           subClass="red cart-handle__btn"
           className="cart-handle__btn cart-handle__btn--checkout"
+         
         >
           <ShoppingCartIcon />
-          <span>Checkout</span>
+          <span onClick={() => {
+            handleCheckout(isAuthenticated);
+          }}>Checkout</span>
         </PrimaryButton>
         <PrimaryButton page="shop" subClass="cart-handle__btn">
           <StoreMallDirectoryIcon />
-          <span>Buy more</span>
+          <span onClick={()=> {handleBuyMore()}}>Buy more</span>
         </PrimaryButton>
       </div>
     </div>
   );
 }
 
-export default CartHandle;

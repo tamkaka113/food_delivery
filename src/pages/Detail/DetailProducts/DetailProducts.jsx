@@ -1,11 +1,9 @@
-import { useEffect, useState, useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import shopApi from "apis/shopApi";
 import ShopProduct from "components/ShopProduct/ShopProduct";
 import { Categories } from "utils/data";
 import "./styles.scss";
-import { ApiContext } from "contexts/ApiContext";
 export default function DetailProducts({ selectedProduct }) {
 
   const { name, id } = useParams();
@@ -47,6 +45,7 @@ export default function DetailProducts({ selectedProduct }) {
       }
     };
     getProducts();
+    // eslint-disable-next-line
   }, [checkMatch(), name, id, selectedProduct]);
 
   return (

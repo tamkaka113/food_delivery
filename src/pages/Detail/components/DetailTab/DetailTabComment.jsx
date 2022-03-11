@@ -2,15 +2,6 @@ import React, { useRef } from "react";
 
 import { PRIMARY_YELLOW_COLOR } from "constants/colors";
 
-// react time ago
-/* import TimeAgo from "react-timeago"; */
-
-// material ui core
-import { Avatar } from "@material-ui/core";
-
-// material ui icons
-import StarIcon from "@material-ui/icons/Star";
-
 import DetailTabUser from "./DetailTabUser";
 
 import "./DetailTabComment.scss";

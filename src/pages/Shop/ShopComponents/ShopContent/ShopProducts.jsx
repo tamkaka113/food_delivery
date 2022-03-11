@@ -4,7 +4,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { Grid } from "@material-ui/core";
 import shopApi from "apis/shopApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useParams } from "react-router-dom";
+import { useParams,useLocation } from "react-router-dom";
 import ShopProduct from "components/ShopProduct/ShopProduct";
 import ShopEmpty from "./ShopEmpty";
 import "./ShopProducts.scss";
@@ -12,13 +12,15 @@ import { ApiContext } from "contexts/ApiContext";
 import { FilterContext } from "contexts/FilterContext";
 export default function ShopProducts() {
   const shopProduct = useSelector((state) => state.ProductReducer);
-
   const isLoading = useSelector((state) => state.ProductReducer.loading);
   const [productLength, setProductLength] = useState(null);
   const { totalPage, getProductList } = useContext(ApiContext);
   const { filter, setFilter, isDisplay, prevFilter, setPrevFilter } =
     useContext(FilterContext);
   const { name } = useParams();
+
+  const id =useLocation()
+  console.log(id)
   const moveToTop = () => {
     window.scrollTo({
       top: 250,

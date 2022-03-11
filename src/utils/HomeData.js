@@ -215,22 +215,22 @@ const homeProductsData = [
 const homeReviewsData = [
   {
     img: ReviewOne,
-    name: "mark zuckerberg",
-    role: "Co-founding Facebook, Inc",
+    name: "Peter Parker",
+    role: "Actress",
     comment:
-      "I chose food G because of their value And incredible superior customer Service they really awesome Food with quality service Ha of their value And incredible sup with quality",
+      "This is by far the best place you ever found in Town, I highly recommend everyone",
   },
   {
     img: ReviewTwo,
-    name: "Rose",
-    role: "Main vocalist of Backpink group",
+    name: "Jennie",
+    role: "Singer",
     comment:
       "Had dinner with girl friends. Menu is perfect, something for everyone. Service was awesome and Jason was very accommodating. Will be back definitely!",
   },
   {
     img: ReviewThree,
-    name: "Tim Cook",
-    role: "CEO of Apple",
+    name: "Adam Khan",
+    role: "Marketing Director",
     comment:
       "I had lunch with some of my colleagues at Echo on Day 1. I had the wedge salad - it was delicious. On Night 2, I enjoyed a drink at the bar. I had a Margarita. The service was excellent",
   },

@@ -5,7 +5,7 @@ import ApiProvider from './contexts/ApiContext';
 import RootRouter from './RootRouter/RootRouter'
 import 'react-toastify/dist/ReactToastify.css';
 import FilterProvider from 'contexts/FilterContext';
-
+import {AuthProvider} from 'contexts/AuthContext';
 // material ui core
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -20,12 +20,17 @@ function App() {
   return (
     <ThemeProvider theme={Theme}>
       <Router>
-      <FilterProvider>
+<AuthProvider>
+        <FilterProvider>
             <ApiProvider>
             <Header/>
-              <RootRouter />
+            <RootRouter />
             </ApiProvider>
+
       </FilterProvider>
+</AuthProvider>
+
+  
       </Router>
       <ScrollButton />
       <Footer />

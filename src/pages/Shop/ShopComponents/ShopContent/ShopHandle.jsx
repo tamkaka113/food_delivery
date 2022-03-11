@@ -6,7 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ViewList from "@material-ui/icons/ViewList";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "./ShopHandle.scss";
 import { Categories,dataTypes } from "utils/data";
 export default function ShopHandle() {
@@ -48,7 +48,8 @@ export default function ShopHandle() {
     if (name_like?.length > 0) {
       getProductList("our-foods", filter);
     }
-  }, [filter]);
+    // eslint-disable-next-line
+  }, [filter,name_like?.length]);
 
   const handleOnchange = (e) => {
     const value = e.target.value;

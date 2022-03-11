@@ -1,5 +1,4 @@
 
-
 import "./styles.scss";
 
 export default function Checkbox(props) {

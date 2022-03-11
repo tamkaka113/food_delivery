@@ -1,4 +1,4 @@
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Checkbox from "components/Checkbox/Checkbox";
 
@@ -32,8 +32,6 @@ export default function ShopFilters() {
       prevSearch:'',
       selectedDrop:'Feature'
      })
-
-  
   };
 
   useEffect(() => {
@@ -87,7 +85,7 @@ export default function ShopFilters() {
           _page: 1,
           price_gte: "100",
         });
-
+       break;
       default:
         break;
     }
@@ -98,7 +96,7 @@ export default function ShopFilters() {
     if (prevFilter.prevPrice) {
       getProductList(name, filter);
     }
-  }, [prevFilter.prevPrice]);
+  }, [prevFilter.prevPrice,filter,name]);
 
   const handleFilterByRate = (params) => {
     setPrevFilter({

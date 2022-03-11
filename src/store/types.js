@@ -9,8 +9,24 @@ export const GET_USER_START="GET_USER_START"
 export const GET_USER_SUCCESS="GET_USER_SUCCESS"
 export const GET_USER_ERROR="GET_USER_ERROR"
 
+//========================
+export const ADD_PRODUCT="ADD_PRODUCT"
+export const REMOVE_PRODUCT=" REMOVE_PRODUCT"
+export const INCREMENT_PRODUCT=" IMCREMENT_PRODUCT"
+export const  DECREMENT_PRODUCT=" DECREMENT_PRODUCT"
 
-export const GET_PRODUCT_LOW_HIGH="price_lth"
-export const GET_PRODUCT_HIGH_LOW="price_htl"
-export const GET_RATE_LOW_HIGH=" rate_lth"
-export const  GET_RATE_HIGH_LOW="rate_htl"
+export const TOTAL_PRODUCT="TOTAL_PRODUCT"
+export const VIEWED_PRODUCT="VIEWED_PRODUCT"
+export const SALE_PRODUCT=" SALE_PRODUCT"
+
+
+//========================
+export const ADD_WISHLIST="ADD_WISHLIST"
+export const REMOVE_WISHLIST=" REMOVE_WISHLIST"
+export const INCREMENT_WISHLIST=" IMCREMENT_WISHLIST"
+export const  DECREMENT_WISHLIST=" DECREMENT_WISHLIST"
+
+export const TOTAL_WISHLIST="TOTAL_WISHLIST"
+export const VIEWED_WISHLIST="VIEWED_WISHLIST"
+export const SALE_WISHLIST=" SALE_WISHLIST"
+ 

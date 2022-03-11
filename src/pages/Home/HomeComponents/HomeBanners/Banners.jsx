@@ -6,10 +6,10 @@ import { homeBannersData } from "utils/HomeData";
 export default function Banners() {
   const [slideNum, setSlideNum] = useState(0);
 
-  let timeWaiter;
+
 
   useEffect(() => {
-    timeWaiter = setInterval(() => {
+    let timeWaiter = setInterval(() => {
       if (slideNum < homeBannersData.length - 1) {
         setSlideNum(slideNum + 1);
       } else {

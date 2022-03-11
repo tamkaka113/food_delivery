@@ -1,3 +1,15 @@
+
+import {
+ ADD_PRODUCT,
+ REMOVE_PRODUCT,
+ SALE_PRODUCT,
+ VIEWED_PRODUCT,
+ INCREMENT_PRODUCT,
+ DECREMENT_PRODUCT,
+ TOTAL_PRODUCT,
+
+
+} from 'store/types'
 const initialState = {
   cart: [],
   viewedProduct: [],
@@ -10,9 +22,8 @@ const initialState = {
 export default function CartReducer(state = { ...initialState }, action) {
   const product = action.payload;
   const cart = state?.cart;
-
   switch (action.type) {
-    case "add/product":
+    case ADD_PRODUCT:
  
       const newProduct = { ...product, quantity: product.quantity ? product.quantity:1 };
     
@@ -33,13 +44,13 @@ export default function CartReducer(state = { ...initialState }, action) {
         return { ...state, cart: copyCart };
       }
 
-    case "remove/product":
+    case REMOVE_PRODUCT:
       const removedCart = cart.filter((item) => {
         return item.id !== product.id;
       });
 
       return { ...state, cart: removedCart };
-    case "increment/product":
+    case INCREMENT_PRODUCT:
       const increasedProduct = cart.map((item) => {
         return item.id === product.id
           ? {
@@ -51,7 +62,7 @@ export default function CartReducer(state = { ...initialState }, action) {
 
       return { ...state, cart: increasedProduct };
 
-    case "decrement/product":
+    case DECREMENT_PRODUCT:
       const decreasedProduct = cart.map((item) => {
         return item.id === product.id
           ? {
@@ -63,7 +74,7 @@ export default function CartReducer(state = { ...initialState }, action) {
 
       return { ...state, cart: decreasedProduct };
 
-    case "total/product":
+    case  TOTAL_PRODUCT:
       const { totalPrice, amount } = cart?.reduce(
         (cartTotal, cartItem) => {
           const { price, quantity } = cartItem;
@@ -79,7 +90,7 @@ export default function CartReducer(state = { ...initialState }, action) {
 
       return { ...state, totalPrice, amount };
 
-    case "viewed/product":
+    case VIEWED_PRODUCT:
       const productList = { ...product };
       const viewedProduct = [...state?.viewedProduct];
       const existProductList = state?.viewedProduct?.find((item) => {
@@ -93,7 +104,7 @@ export default function CartReducer(state = { ...initialState }, action) {
       }
 
 
-      case 'sale/product':
+      case SALE_PRODUCT:
       const saleProduct = {...product, quantity:1  }
       const {price, quantity} = saleProduct
      

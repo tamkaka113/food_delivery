@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 
-import { Container } from "@material-ui/core";
+import { Container,Avatar } from "@material-ui/core";
 import BurgerNavbar from "./BurgerNavbar";
 import { useHistory } from "react-router-dom";
-// material ui icons
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import HomeIcon from "@material-ui/icons/Home";
+import LoyaltyOutlinedIcon from '@material-ui/icons/LoyaltyOutlined';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
@@ -15,8 +17,24 @@ import { FilterContext } from "contexts/FilterContext";
 import Logo from "../../assets/svgs/Common/logo.svg";
 import "./style.scss";
 import Cart from "components/Cart/Cart";
+import { AuthContexts } from "contexts/AuthContext";
+import Wishlist from "components/Wishlist";
+
 export default function Header() {
   const { isDisplay, setIsDisplay } = useContext(FilterContext);
+  const [openWishList, setOpenWishList] =useState(false)
+  const {
+    myUser,
+    loginWithRedirect,
+    logout,
+  } = AuthContexts()
+
+const showWishList =() => {
+  setOpenWishList(!openWishList)
+}
+
+  const {family_name, nickname, picture} = myUser  ||''
+
 
   const [isShowBurgerNav, setIsShowBurgerNav] = useState(false);
   const cartReducer = useSelector((state) => state?.CartReducer);
@@ -57,8 +75,9 @@ export default function Header() {
 
             <div className="navbar__link">
               <img className="navbar__logo" src={Logo} alt="logo" />
+              <h2 style={{fontSize:'2.4rem'}}>oody</h2>
             </div>
-
+  
             <div className="navbar--left">
               <ul className="navbar__list">
                 <li
@@ -100,7 +119,42 @@ export default function Header() {
                 </div>
               </div>
             </div>
+
+            {
+              myUser?     <div className='navbar__account'>
+              <Avatar src ={picture} />
+              <div className='navbar__username'>{family_name|| nickname}</div>
+
+              <ul className='navbar__account-options'>
+                <li className='navbar__account-option'>
+                  <PermContactCalendarIcon />
+                  <span>My account</span>{' '}
+                </li>
+                <li
+                 onClick= {showWishList}
+                  className='navbar__account-option'>
+                  <LoyaltyOutlinedIcon />
+                  <span>My wishlist</span>{' '}
+                </li>
+                <li
+                  onClick={logout}
+                  className='navbar__account-option'>
+                  <ExitToAppIcon />
+                  <span>Logout</span>
+                </li>
+
+                </ul>
+            </div>:  <div  onClick={loginWithRedirect} className='navbar__account'>
+                  <Avatar />
+                  <div className='navbar__username navbar__username--signed-out'>
+                    Sign In
+                  </div>
+                </div>
+            }
+         <Wishlist openWishList={openWishList} setOpenWishList={setOpenWishList}/>
+           
           </div>
+         
         </Container>
       </header>
       <BurgerNavbar isShow={isShowBurgerNav} showBurgerNav={showBurgerNav} />

@@ -36,6 +36,13 @@
 
   &__link {
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-white-color;
+  
+    
   }
 
   &__container {

@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from "pages/Home/Home";
 import Shop from "pages/Shop/Shop";
 import Detail from "pages/Detail/Detail";
+import Checkout from "pages/Checkout";
 
 export default function RootRouter() {
 
@@ -14,15 +15,17 @@ export default function RootRouter() {
           <Route exact path="/">
             <Home />
           </Route>
-
-        
+          <Route  exact path="/checkout" >
+        <Checkout/>
+          </Route>
           <Route  exact path="/shop/:name">
             <Shop/>
           </Route>
+          
           <Route exact path="/shop/:name/:id">
             <Detail/>
           </Route>
-
+         
        
         </Switch>
      

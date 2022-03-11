@@ -1,7 +1,4 @@
 import { useState} from "react";
-import { homeFigureData } from "utils/HomeData";
-import { Container } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 import { Figure } from "utils/homeImages";
 import "./styles.scss";
 export default function HomeFigure() {
@@ -39,7 +36,6 @@ export default function HomeFigure() {
           <span onClick={toggleModal} className="home-analysis__modal"></span>
   
           <iframe width="560" height="315" 
-          title="Map"
           className={
             isShow ? "home-analysis__video show" : "home-analysis__video"
           }
@@ -49,27 +45,6 @@ export default function HomeFigure() {
            picture-in-picture"
            allowfullscreen></iframe>
         </div>
-      </div>
-
-      <div className="home-analysis__container">
-        <Container>
-          <Grid container spacing={3}>
-            {homeFigureData.map(({ description, suffix }, index) => (
-              <Grid key={index} item xs={12} sm={6} md={3}>
-                <div >
-                  <span
-                    
-                    className="home-analysis__qnt"
-                  >
-                    0
-                  </span>
-                  <span className="home-analysis__qnt">{suffix}</span>
-                </div>
-                <div className="home-analysis__description">{description}</div>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
       </div>
     </section>
   );

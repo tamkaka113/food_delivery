@@ -1,20 +1,20 @@
 
 import { Button } from "@material-ui/core";
+import { AuthContexts } from "contexts/AuthContext";
 import "./styles.scss";
+
 export default function Dialog(props) {
-  const { isShow, setIsShow } = props;
+  const { favorite, setFavorite } = props;
+  const {loginWithRedirect}  = AuthContexts()
 
   const hideDialog = () => {
-    setIsShow(false);
+    setFavorite(false);
   };
 
-  const moveToLogin = () => {
-    setIsShow(false);
-    
-  };
+
 
   return (
-    <div className={isShow ? "dialog show" : "dialog"}>
+    <div className={favorite?'dialog show':'dialog '} >
       <div onClick={hideDialog} className="dialog__overlay"></div>
       <div className="dialog__wrapper">
         <h2 className="dialog__title">Join with us 🚀</h2>
@@ -26,7 +26,7 @@ export default function Dialog(props) {
             Cancle
           </Button>
           <Button
-            onClick={moveToLogin}
+            onClick={loginWithRedirect}
             variant="contained"
             color="primary"
             className="dialog__btn"
@@ -38,5 +38,3 @@ export default function Dialog(props) {
     </div>
   );
 }
-
-

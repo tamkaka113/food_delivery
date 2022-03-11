@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import {dataOptions} from 'utils/data'
+
+import { ADD_PRODUCT } from "store/types";
 export default function DetailContent({ selectedProduct }) {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -49,6 +51,7 @@ export default function DetailContent({ selectedProduct }) {
           ...prevFilter,
           selectedRadio: null,
         });
+        break;
       case 2:
         setPrevFilter({
           ...prevFilter,
@@ -77,6 +80,7 @@ export default function DetailContent({ selectedProduct }) {
         break;
     }
     setPrevId(id);
+    // eslint-disable-next-line
   }, [newProduct?.quantity, id, prevId, price]);
 
   const handleOnChange = (e) => {
@@ -96,7 +100,7 @@ export default function DetailContent({ selectedProduct }) {
   };
 
   const handleAddToCart = (product) => {
-    dispatch({ type: "add/product", payload: product });
+    dispatch({ type: ADD_PRODUCT, payload: product });
     if (cart) {
       notify();
     }

@@ -11,11 +11,22 @@ import RoomIcon from "@material-ui/icons/Room";
 import { ToastContainer, toast } from "react-toastify";
 import {FilterContext} from 'contexts/FilterContext'
 import "./styles.scss";
+import { AuthContexts } from 'contexts/AuthContext'
+import Dialog from "components/Dialog";
 import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
+import { ADD_PRODUCT,VIEWED_PRODUCT, SALE_PRODUCT } from "store/types";
+
+import { formatPrice } from "utils/helper";
 export default function ShopProduct(product) {
   const { id, name, img, dsc, price, rate, country } = product;
   const [viewedProduct, setViewedProduct] = useState(false);
   const [showText, setShowText] = useState(false);
+  const [favorite, setFavorite] =useState(false)
+
+  const {
+    myUser
+  } = AuthContexts()
+
   const {prevFilter,setPrevFilter} = useContext(FilterContext)
   const params = useParams();
   const history = useHistory();
@@ -29,9 +40,7 @@ export default function ShopProduct(product) {
   const cartReducer = useSelector((state) => state?.CartReducer);
 
   const handleAddProduct = (product) => {
-
- 
-    dispatch({ type: "add/product", payload: product });
+    dispatch({ type: ADD_PRODUCT, payload: product });
     if (product && cartReducer?.amount) {
       notify();
     }
@@ -52,12 +61,12 @@ export default function ShopProduct(product) {
       }
     };
     checkViewedProduct();
-  }, [params?.id, cartReducer]);
+  }, [params?.id, cartReducer,product.id,viewedProducts]);
 
   const handleToDetail = (product) => {
-    dispatch({ type: "viewed/product", payload: product });
+    dispatch({ type:VIEWED_PRODUCT, payload: product });
     dispatch({
-      type: "sale/product",
+      type:SALE_PRODUCT,
       payload:product
     });
     setPrevFilter({
@@ -76,7 +85,22 @@ export default function ShopProduct(product) {
     setShowText(false);
   };
 
+  const openDialog =() => {
+    setFavorite(true)
+  }
+
+  const handleFavorite =(user) => {
+
+    if(!user) {
+      openDialog()
+      
+    } 
+
+  }
+
   return (
+
+    <>
     <div id={id} className="shop-product ">
       <div
         onClick={() => handleToDetail(product)}
@@ -121,14 +145,16 @@ export default function ShopProduct(product) {
             <RoomIcon />
             <span>{country}</span>
           </div>
-          <div className="shop-product__price">${price}</div>
+          <div className="shop-product__price">{formatPrice(price)}</div>
         </div>
       </div>
 
       <div className="shop-product__btns">
         <div className="shop-product__btn">
-          <FavoriteBorderIcon />
+          <FavoriteBorderIcon onClick = {()=> {handleFavorite(myUser)}}/>
         </div>
+
+
         <div
           onClick={() => handleAddProduct(product)}
           className="shop-product__btn"
@@ -139,5 +165,12 @@ export default function ShopProduct(product) {
       </div>
       <div className="shop-product__label">Favourite</div>
     </div>
+
+    <Dialog  favorite={favorite} setFavorite={setFavorite}/>
+    </>
+    
+
+
+   
   );
 }
