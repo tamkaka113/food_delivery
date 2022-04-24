@@ -1,18 +1,16 @@
-
-import CheckoutBanner from './components/CheckoutBanner';
-import CheckoutContent from './components/CheckoutContent';
-import './Checkout.scss';
-import CheckoutLogin from './components/CheckoutLogin';
-import {AuthContexts} from 'contexts/AuthContext'
-
+import CheckoutBanner from "./components/CheckoutBanner";
+import CheckoutContent from "./components/CheckoutContent";
+import "./Checkout.scss";
+import CheckoutLogin from "./components/CheckoutLogin";
+import { AuthContexts } from "contexts/AuthContext";
 
 function Checkout() {
-  const {myUser} =AuthContexts()
+  const { myUser } = AuthContexts();
 
   return (
-    <div className='checkout'>
+    <div className="checkout">
       <CheckoutBanner />
-      { myUser ? <CheckoutContent />:<CheckoutLogin/> } 
+      {myUser ? <CheckoutContent /> : <CheckoutLogin />}
     </div>
   );
 }

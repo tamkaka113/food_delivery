@@ -11,7 +11,7 @@ export default function Cart() {
   const CartProduct = useSelector((state) => state?.CartReducer?.cart);
 
   const { isDisplay, setIsDisplay } = useContext(FilterContext);
-  
+
   const handleCloseCart = () => {
     setIsDisplay({
       ...isDisplay,

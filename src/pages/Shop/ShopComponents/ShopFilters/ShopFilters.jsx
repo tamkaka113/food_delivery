@@ -6,11 +6,9 @@ import Checkbox from "components/Checkbox/Checkbox";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 
-
 import { ApiContext } from "contexts/ApiContext";
 import {typeOptions,priceOptions} from 'utils/data'
 import { FilterContext } from "contexts/FilterContext";
-
 import "./styles.scss";
 
 export default function ShopFilters() {
@@ -36,6 +34,7 @@ export default function ShopFilters() {
 
   useEffect(() => {
     if (nameMenu) {
+    
       getProductList(nameMenu, filter);
     }
   }, [nameMenu]); 

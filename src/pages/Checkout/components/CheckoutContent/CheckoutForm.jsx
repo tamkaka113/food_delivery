@@ -1,4 +1,3 @@
-
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -25,6 +24,7 @@ export default function CheckoutForm() {
     setTimeout(() => {
       history.push("/shop/our-foods?_limit=16&_page=1");
     }, 2500);
+
   };
 
   return (

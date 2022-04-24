@@ -17,7 +17,7 @@ import Checkbox from "components/Checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import {dataOptions} from 'utils/data'
+import { dataOptions } from "utils/data";
 
 import { ADD_PRODUCT } from "store/types";
 export default function DetailContent({ selectedProduct }) {

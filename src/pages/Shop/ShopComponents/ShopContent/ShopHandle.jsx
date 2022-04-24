@@ -84,16 +84,18 @@ export default function ShopHandle() {
     const handleClickDrop = (e) => {
       const el = ref.current;
       if (el && el.contains(e.target)) {
+
         setIsDrop(!isDrop);
       } else {
         setIsDrop(false);
       }
     };
+// eslint-disable-next-line 
 
     window.addEventListener("click", handleClickDrop);
 
     return window.addEventListener("click", handleClickDrop);
-  }, []);
+  }, [setIsDrop]);
 
   return (
     <div className="shop-handle">

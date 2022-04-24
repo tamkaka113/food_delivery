@@ -60,11 +60,14 @@ export default function ShopProducts() {
   const { _page } = filter;
   useEffect(() => {
     if (_page > 1) {
+      // eslint-disable-next-line
       getProductList(name, filter);
+      // eslint-disable-next-line
 
       setPrevFilter({
         ...prevFilter,
         prevName: null,
+        // eslint-disable-next-line
         selectedDrop: "Feature",
       });
     } 

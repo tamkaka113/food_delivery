@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-
 export const FilterContext = createContext();
 
 export default function FilterProvider({ children }) {
@@ -17,14 +16,10 @@ export default function FilterProvider({ children }) {
     _page: 1,
   });
 
-  const [isDisplay, setIsDisplay] =useState({
-    isDisplayProduct:true,
-    isDisplayCart:false,
-
-  })
-
-
-
+  const [isDisplay, setIsDisplay] = useState({
+    isDisplayProduct: true,
+    isDisplayCart: false,
+  });
   return (
     <FilterContext.Provider
       value={{
@@ -32,13 +27,11 @@ export default function FilterProvider({ children }) {
         setFilter,
         prevFilter,
         setPrevFilter,
-        isDisplay, 
-        setIsDisplay
+        isDisplay,
+        setIsDisplay,
       }}
     >
       {children}
     </FilterContext.Provider>
   );
 }
-
-

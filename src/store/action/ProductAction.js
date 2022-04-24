@@ -11,5 +11,3 @@ export const getProductListErrorAction = (error) => ({
   type: types?.GET_PRODUCT_LIST_ERROR,
   error,
 });
-
-

@@ -1,18 +1,15 @@
 const initialState = {
-    basket:[],
-}
+  basket: [],
+};
 
-export default function WishListReducer( state ={...initialState}, action) {
+export default function WishListReducer(state = { ...initialState }, action) {
+  const product = action?.payload;
 
-    const product = action?.payload
+  switch (action.type) {
+    case value:
+      break;
 
-    
-    switch (action.type) {
-        case value:
-            
-            break;
-    
-        default:
-            break;
-    }
+    default:
+      break;
+  }
 }

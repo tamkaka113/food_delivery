@@ -1,20 +1,17 @@
-
 import {
- ADD_PRODUCT,
- REMOVE_PRODUCT,
- SALE_PRODUCT,
- VIEWED_PRODUCT,
- INCREMENT_PRODUCT,
- DECREMENT_PRODUCT,
- TOTAL_PRODUCT,
-
-
-} from 'store/types'
+  ADD_PRODUCT,
+  REMOVE_PRODUCT,
+  SALE_PRODUCT,
+  VIEWED_PRODUCT,
+  INCREMENT_PRODUCT,
+  DECREMENT_PRODUCT,
+  TOTAL_PRODUCT,
+} from "store/types";
 const initialState = {
   cart: [],
   viewedProduct: [],
-  checkedProduct:[],
-  checkedProductPrice:0,
+  checkedProduct: [],
+  checkedProductPrice: 0,
   totalPrice: 0,
   amount: 0,
 };
@@ -24,14 +21,16 @@ export default function CartReducer(state = { ...initialState }, action) {
   const cart = state?.cart;
   switch (action.type) {
     case ADD_PRODUCT:
- 
-      const newProduct = { ...product, quantity: product.quantity ? product.quantity:1 };
-    
+      const newProduct = {
+        ...product,
+        quantity: product.quantity ? product.quantity : 1,
+      };
+
       const productExist = cart.find((item) => item.id === product.id);
       if (productExist) {
         const newProductExist = {
           ...product,
-          quantity: productExist?.quantity +  newProduct?.quantity,
+          quantity: productExist?.quantity + newProduct?.quantity,
         };
 
         const newCart = cart.map((item) => {
@@ -74,7 +73,7 @@ export default function CartReducer(state = { ...initialState }, action) {
 
       return { ...state, cart: decreasedProduct };
 
-    case  TOTAL_PRODUCT:
+    case TOTAL_PRODUCT:
       const { totalPrice, amount } = cart?.reduce(
         (cartTotal, cartItem) => {
           const { price, quantity } = cartItem;
@@ -103,32 +102,39 @@ export default function CartReducer(state = { ...initialState }, action) {
         return { ...state, viewedProduct: viewedProduct };
       }
 
+      break;
+    case SALE_PRODUCT:
+      const saleProduct = { ...product, quantity: 1 };
+      const { price, quantity } = saleProduct;
 
-      case SALE_PRODUCT:
-      const saleProduct = {...product, quantity:1  }
-      const {price, quantity} = saleProduct
-     
-      
-   if(quantity ===2) {
-      const newPrice = 
-          
-      (price*quantity) - (price*quantity*15)/100
+      if (quantity === 2) {
+        const newPrice = price * quantity - (price * quantity * 15) / 100;
 
-    return {...state,checkedProduct: saleProduct,checkedProductPrice:newPrice}
-    }
-    if(quantity===3) {
-      const newPrice =  (price*quantity) - (price*quantity*15)/100
-      return {...state,checkedProduct: saleProduct,checkedProductPrice:newPrice}
+        return {
+          ...state,
+          checkedProduct: saleProduct,
+          checkedProductPrice: newPrice,
+        };
+      }
+      if (quantity === 3) {
+        const newPrice = price * quantity - (price * quantity * 15) / 100;
+        return {
+          ...state,
+          checkedProduct: saleProduct,
+          checkedProductPrice: newPrice,
+        };
+      }
+      if (quantity === 5) {
+        const newPrice = price * quantity - (price * quantity * 35) / 100;
+        return {
+          ...state,
+          checkedProduct: saleProduct,
+          checkedProductPrice: newPrice,
+        };
+      }
 
-    }
-    if(quantity===5) {
-      const newPrice =  (price*quantity) - (price*quantity*35)/100
-      return {...state,checkedProduct: saleProduct,checkedProductPrice:newPrice}
+      return { ...state, checkedProduct: saleProduct };
 
-    } 
-        
-    return {...state,checkedProduct:saleProduct }
-    
     default:
       return state;
   }

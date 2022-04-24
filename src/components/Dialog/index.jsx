@@ -1,20 +1,17 @@
-
 import { Button } from "@material-ui/core";
 import { AuthContexts } from "contexts/AuthContext";
 import "./styles.scss";
 
 export default function Dialog(props) {
   const { favorite, setFavorite } = props;
-  const {loginWithRedirect}  = AuthContexts()
+  const { loginWithRedirect } = AuthContexts();
 
   const hideDialog = () => {
     setFavorite(false);
   };
 
-
-
   return (
-    <div className={favorite?'dialog show':'dialog '} >
+    <div className={favorite ? "dialog show" : "dialog "}>
       <div onClick={hideDialog} className="dialog__overlay"></div>
       <div className="dialog__wrapper">
         <h2 className="dialog__title">Join with us 🚀</h2>
