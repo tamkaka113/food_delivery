@@ -1,9 +1,9 @@
 import PrimaryButton from "components/PrimaryButton/PrimaryButton";
 import "./CheckoutAside.scss";
 import { useSelector } from "react-redux";
-import {formatPrice} from 'utils/helper'
+import { formatPrice } from "utils/helper";
 export default function CheckoutAside() {
-  const {cart, totalPrice} = useSelector((state) => state?.CartReducer);
+  const { cart, totalPrice } = useSelector((state) => state?.CartReducer);
 
   return (
     <aside>
@@ -19,7 +19,9 @@ export default function CheckoutAside() {
                 <h3 className="checkout-product__name">{name}</h3>
                 <span className="checkout-product__country">{country}</span>
               </div>
-              <span className="checkout-product__price">{formatPrice(price)}</span>
+              <span className="checkout-product__price">
+                {formatPrice(price)}
+              </span>
             </li>
           </ul>
         );
@@ -45,13 +47,17 @@ export default function CheckoutAside() {
         </div>
         <div className="checkout-detail__row">
           <span className="checkout-detail__label">Taxes (10%)</span>
-          <span className="checkout-detail__content">${(totalPrice*10)/100}</span>
+          <span className="checkout-detail__content">
+            ${(totalPrice * 10) / 100}
+          </span>
         </div>
       </div>
 
       <div className="checkout-total">
         <span className="checkout-total__label">Total</span>
-        <span className="checkout-total__price">{formatPrice(totalPrice+(totalPrice*10)/100)}</span>
+        <span className="checkout-total__price">
+          {formatPrice(totalPrice + (totalPrice * 10) / 100)}
+        </span>
       </div>
     </aside>
   );

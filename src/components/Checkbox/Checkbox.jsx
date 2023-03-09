@@ -1,13 +1,19 @@
-
 import "./styles.scss";
 
 export default function Checkbox(props) {
-  const { value,content, checked, handleOnChange, handleFilterbyByPrice,handleOnSale } = props;
+  const {
+    value,
+    content,
+    checked,
+    handleOnChange,
+    handleFilterbyByPrice,
+    handleOnSale,
+  } = props;
 
   return (
     <label onClick={handleFilterbyByPrice} className="checkbox">
       <input
-      onClick={handleOnSale}
+        onClick={handleOnSale}
         checked={checked}
         onChange={handleOnChange}
         className="checkbox__input"

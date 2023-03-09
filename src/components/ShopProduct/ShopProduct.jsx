@@ -22,9 +22,7 @@ export default function ShopProduct(product) {
   const [viewedProduct, setViewedProduct] = useState(false);
   const [showText, setShowText] = useState(false);
   const [favorite, setFavorite] = useState(false);
-
   const { myUser } = AuthContexts();
-
   const { prevFilter, setPrevFilter } = useContext(FilterContext);
   const params = useParams();
   const history = useHistory();

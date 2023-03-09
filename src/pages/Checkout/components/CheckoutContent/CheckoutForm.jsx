@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ToastContainer, toast } from "react-toastify";
 import PrimaryButton from "components/PrimaryButton/PrimaryButton";
-import CheckoutFormField from "./CheckoutFormField";
 import "./CheckoutForm.scss";
 
 export default function CheckoutForm() {
@@ -24,7 +23,6 @@ export default function CheckoutForm() {
     setTimeout(() => {
       history.push("/shop/our-foods?_limit=16&_page=1");
     }, 2500);
-
   };
 
   return (

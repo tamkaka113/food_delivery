@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-
 import "./CheckoutProgress.scss";
 
 function CheckoutProgress(props) {

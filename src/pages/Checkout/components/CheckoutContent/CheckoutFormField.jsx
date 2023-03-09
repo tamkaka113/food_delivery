@@ -1,9 +1,7 @@
-
-
 import "./CheckoutFormField.scss";
 
-export default  function CheckoutFormField(props) {
- const {label} =props
+export default function CheckoutFormField(props) {
+  const { label } = props;
 
   return (
     <div className="checkout-form-field">
@@ -12,17 +10,10 @@ export default  function CheckoutFormField(props) {
           className="checkout-form-field__input"
           placeholder={label}
           type="text"
-        
         />
         <span className="checkout-form-field__label"></span>
       </div>
-      <span className="checkout-form-field__error">
-       
-      </span>
+      <span className="checkout-form-field__error"></span>
     </div>
   );
 }
-
-
-
-

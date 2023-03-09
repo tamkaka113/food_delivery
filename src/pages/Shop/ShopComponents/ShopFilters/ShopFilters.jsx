@@ -1,19 +1,18 @@
 import { useParams } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Checkbox from "components/Checkbox/Checkbox";
-
 // material ui icons
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-
 import { ApiContext } from "contexts/ApiContext";
-import {typeOptions,priceOptions} from 'utils/data'
+import { typeOptions, priceOptions } from "utils/data";
 import { FilterContext } from "contexts/FilterContext";
 import "./styles.scss";
 
 export default function ShopFilters() {
   const { getProductList } = useContext(ApiContext);
-  const { filter, setFilter,prevFilter,setPrevFilter  } = useContext(FilterContext);
+  const { filter, setFilter, prevFilter, setPrevFilter } =
+    useContext(FilterContext);
   const [nameMenu, setNameMenu] = useState(null);
   const { name } = useParams();
   const handleFilterbyName = (params) => {
@@ -22,39 +21,37 @@ export default function ShopFilters() {
       _page: 1,
     });
     setNameMenu(params);
-     setPrevFilter({
-      prevName:null,
-      prevPrice:null,
-      prevRate:null,
-      selectedRadio:null,
-      prevSearch:'',
-      selectedDrop:'Feature'
-     })
+    setPrevFilter({
+      prevName: null,
+      prevPrice: null,
+      prevRate: null,
+      selectedRadio: null,
+      prevSearch: "",
+      selectedDrop: "Feature",
+    });
   };
 
   useEffect(() => {
     if (nameMenu) {
-    
       getProductList(nameMenu, filter);
     }
-  }, [nameMenu]); 
+  }, [nameMenu]);
 
   const handleOnChange = (e) => {
     setPrevFilter({
       ...prevFilter,
-      selectedRadio:e.target.value
-    })
-
+      selectedRadio: e.target.value,
+    });
   };
 
   const handleFilterbyByPrice = (content, params) => {
     setPrevFilter({
       ...prevFilter,
-      prevSearch:null,
-      selectedDrop:'Feature',
-      prevRate:null,
-      prevPrice:params
-    })
+      prevSearch: null,
+      selectedDrop: "Feature",
+      prevRate: null,
+      prevPrice: params,
+    });
     switch (content) {
       case "Under $100":
         setFilter({
@@ -84,42 +81,38 @@ export default function ShopFilters() {
           _page: 1,
           price_gte: "100",
         });
-       break;
+        break;
       default:
         break;
     }
   };
 
-
   useEffect(() => {
     if (prevFilter.prevPrice) {
       getProductList(name, filter);
     }
-  }, [prevFilter.prevPrice,filter,name]);
+  }, [prevFilter.prevPrice, filter, name]);
 
   const handleFilterByRate = (params) => {
     setPrevFilter({
       ...prevFilter,
-      prevSearch:null,
-      selectedDrop:'Feature',
-      selectedRadio:null,
-      prevRate:{ rate_like:params}
-    })
+      prevSearch: null,
+      selectedDrop: "Feature",
+      selectedRadio: null,
+      prevRate: { rate_like: params },
+    });
     setFilter({
-      _limit:16,
-      _page:1,
-      rate_like:params
-    })
-
-  
+      _limit: 16,
+      _page: 1,
+      rate_like: params,
+    });
   };
 
   useEffect(() => {
-    if(prevFilter.prevRate) {
-
+    if (prevFilter.prevRate) {
       getProductList(name, filter);
     }
-  }, [prevFilter.prevRate])
+  }, [prevFilter.prevRate]);
   return (
     <div className="shop-filters">
       <h2 className="shop-filters__title">Popular</h2>
@@ -193,4 +186,3 @@ export default function ShopFilters() {
     </div>
   );
 }
-

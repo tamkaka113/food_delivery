@@ -7,7 +7,6 @@ import "swiper/components/pagination/pagination.scss";
 import "./styles.scss";
 // swiper modules
 SwiperCore.use([Autoplay, Pagination]);
-
 export default function HomeReviews() {
   return (
     <section className="home-reviews">

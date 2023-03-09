@@ -6,7 +6,6 @@ import { AuthContexts } from "contexts/AuthContext";
 
 function Checkout() {
   const { myUser } = AuthContexts();
-
   return (
     <div className="checkout">
       <CheckoutBanner />

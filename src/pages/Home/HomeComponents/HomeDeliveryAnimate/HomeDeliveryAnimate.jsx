@@ -1,9 +1,7 @@
 import { homeWorkData } from "utils/HomeData";
-
 import { Container } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import "./styles.scss";
-
 export default function HomeDeliveryAnimate() {
   return (
     <section className="home-work">

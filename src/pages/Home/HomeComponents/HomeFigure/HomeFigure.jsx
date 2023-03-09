@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import { Figure } from "utils/homeImages";
 import "./styles.scss";
 export default function HomeFigure() {
@@ -11,7 +11,6 @@ export default function HomeFigure() {
     <section
       className="home-analysis"
       style={{ backgroundImage: `url(${Figure})` }}
-
     >
       <div className="home-analysis__wrapper">
         <div className="home-analysis__content">
@@ -34,19 +33,22 @@ export default function HomeFigure() {
           }
         >
           <span onClick={toggleModal} className="home-analysis__modal"></span>
-  
-          <iframe width="560" height="315" 
-          className={
-            isShow ? "home-analysis__video show" : "home-analysis__video"
-          }
-          src="https://www.youtube.com/embed/dA0VGEbbw4g"
-           title="YouTube video player" frameborder="0" 
-           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; 
+
+          <iframe
+            width="560"
+            height="315"
+            className={
+              isShow ? "home-analysis__video show" : "home-analysis__video"
+            }
+            src="https://www.youtube.com/embed/dA0VGEbbw4g"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; 
            picture-in-picture"
-           allowfullscreen></iframe>
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </section>
   );
 }
-

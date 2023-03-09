@@ -4,7 +4,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import { Grid } from "@material-ui/core";
 import shopApi from "apis/shopApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useParams,useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ShopProduct from "components/ShopProduct/ShopProduct";
 import ShopEmpty from "./ShopEmpty";
 import "./ShopProducts.scss";
@@ -19,8 +19,8 @@ export default function ShopProducts() {
     useContext(FilterContext);
   const { name } = useParams();
 
-  const id =useLocation()
-  console.log(id)
+  const id = useLocation();
+  console.log(id);
   const moveToTop = () => {
     window.scrollTo({
       top: 250,
@@ -70,17 +70,16 @@ export default function ShopProducts() {
         // eslint-disable-next-line
         selectedDrop: "Feature",
       });
-    } 
-const moveTopId =setTimeout(() => {
-      if(!isLoading) {
-
-        moveToTop()
+    }
+    const moveTopId = setTimeout(() => {
+      if (!isLoading) {
+        moveToTop();
       }
     }, 500);
 
-    return (()=>{
-      clearTimeout(moveTopId)
-   });
+    return () => {
+      clearTimeout(moveTopId);
+    };
   }, [filter]);
 
   if (isLoading) {
@@ -95,7 +94,11 @@ const moveTopId =setTimeout(() => {
     <>
       {shopProduct?.list.length <= 0 && <ShopEmpty />}
       <div
-        className={isDisplay.isDisplayProduct ? "shop-products " : "shop-products display-flex "}
+        className={
+          isDisplay.isDisplayProduct
+            ? "shop-products "
+            : "shop-products display-flex "
+        }
       >
         {shopProduct?.list &&
           shopProduct?.list?.map((item) => (

@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import storeConfig from "./store/config";
-import  {Auth0Provider} from '@auth0/auth0-react'
+import { Auth0Provider } from "@auth0/auth0-react";
 const { store, persistor } = storeConfig();
 
 ReactDOM.render(

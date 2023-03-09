@@ -1,8 +1,6 @@
 // material ui icons
 import LinearScaleIcon from "@material-ui/icons/LinearScale";
-
 import CommonBanner from "assets/images/Common/banner.jpg";
-
 import "./styles.scss";
 
 function CheckoutBanner() {

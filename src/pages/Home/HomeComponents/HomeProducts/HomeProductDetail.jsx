@@ -1,16 +1,10 @@
-
-
 import "./HomeProductDetail.scss";
 export default function HomeProductDetail(props) {
   const { img, name, description, price } = props;
   return (
     <div className="home-product">
       <div className="home-product__wrapper">
-        <img
-          className="home-product__img"
-          src={img}
-          alt="Home product"
-        />
+        <img className="home-product__img" src={img} alt="Home product" />
         <button className="btn">
           <span>Best Deal</span>
         </button>
@@ -23,4 +17,3 @@ export default function HomeProductDetail(props) {
     </div>
   );
 }
-

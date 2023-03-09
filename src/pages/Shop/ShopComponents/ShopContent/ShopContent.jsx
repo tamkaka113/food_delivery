@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import ShopProducts from "./ShopProducts";
 import ShopHandle from "./ShopHandle";
@@ -8,7 +7,7 @@ export default function ShopContent() {
   return (
     <div className="shop-content grid">
       <ShopHandle isFlex={isFlex} setIsFlex={setIsFlex} />
-       <ShopProducts/>
+      <ShopProducts />
     </div>
   );
 }

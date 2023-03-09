@@ -1,9 +1,6 @@
-import React, {useContext} from "react";
-
+import React, { useContext } from "react";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-
 import { Container } from "@material-ui/core";
-
 import "./HomeBanner.scss";
 import PrimaryButton from "components/PrimaryButton/PrimaryButton";
 import { useHistory } from "react-router-dom";
@@ -12,7 +9,6 @@ import { FilterContext } from "contexts/FilterContext";
 import queryString from "query-string";
 export default function HomeBanner(props) {
   const { title, description, strong, background } = props;
-
   const { getProductList } = useContext(ApiContext);
   const { filter, setFilter } = useContext(FilterContext);
   const history = useHistory();
@@ -31,7 +27,6 @@ export default function HomeBanner(props) {
   return (
     <div
       className="home-banner"
-  
       style={{
         backgroundImage: `url(${background})`,
       }}

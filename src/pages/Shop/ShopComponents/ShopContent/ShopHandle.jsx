@@ -8,7 +8,7 @@ import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useSelector } from "react-redux";
 import "./ShopHandle.scss";
-import { Categories,dataTypes } from "utils/data";
+import { Categories, dataTypes } from "utils/data";
 export default function ShopHandle() {
   const [isDrop, setIsDrop] = useState(false);
   const ref = useRef();
@@ -49,7 +49,7 @@ export default function ShopHandle() {
       getProductList("our-foods", filter);
     }
     // eslint-disable-next-line
-  }, [filter,name_like?.length]);
+  }, [filter, name_like?.length]);
 
   const handleOnchange = (e) => {
     const value = e.target.value;
@@ -84,13 +84,12 @@ export default function ShopHandle() {
     const handleClickDrop = (e) => {
       const el = ref.current;
       if (el && el.contains(e.target)) {
-
         setIsDrop(!isDrop);
       } else {
         setIsDrop(false);
       }
     };
-// eslint-disable-next-line 
+    // eslint-disable-next-line
 
     window.addEventListener("click", handleClickDrop);
 
@@ -151,7 +150,7 @@ export default function ShopHandle() {
           onClick={() => {
             setIsDisplay({
               ...isDisplay,
-              isDisplayProduct:false,
+              isDisplayProduct: false,
             });
           }}
           className={
@@ -164,5 +163,3 @@ export default function ShopHandle() {
     </div>
   );
 }
-
-

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-
 import "./styles.scss";
 
 function ScrollButton() {
